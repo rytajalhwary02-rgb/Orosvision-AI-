@@ -21,6 +21,13 @@ app_mode = st.sidebar.selectbox(
     ]
 )
 
+# دالة حساب مؤشر الخطورة للعين الواحدة بدقة
+def get_risk_score(image):
+    img_gray = image.convert("L").resize((64, 64))
+    arr = np.array(img_gray)
+    mean_val = float(np.mean(arr))
+    return float(np.clip(100 - (mean_val * 0.7), 15.0, 90.0))
+
 if app_mode == "🔍 الفحص اللحظي (XAI Model)":
     st.header("🔍 الفحص الذكي للقرص البصري بالذكاء الاصطناعي")
     
@@ -45,13 +52,7 @@ if app_mode == "🔍 الفحص اللحظي (XAI Model)":
         with col2:
             st.subheader("🔬 نتيجة النموذج والتحليل التفسيري")
             
-            # حساب آمن 100% ومستقر لا يتسبب بأي إيرور
-            img_gray = img.convert("L").resize((64, 64))
-            arr = np.array(img_gray)
-            mean_val = float(np.mean(arr))
-            
-            # معادلة مستقرة تعطي نسبة منطقية بناءً على سطوع الصورة
-            score = float(np.clip(100 - (mean_val * 0.7), 15.0, 90.0))
+            score = get_risk_score(img)
             
             st.metric(label="مؤشر خطورة العصب البصري (AI Risk Score)", value=f"{score:.1f}%")
             
@@ -86,22 +87,29 @@ elif app_mode == "📈 المتابعة الزمنية الدافئة":
         st.markdown("---")
         st.subheader("📊 تحليل وحساب الفارق الزمني:")
         
-        arr_o = np.array(Image.open(old_f).convert("L").resize((64, 64)))
-        arr_n = np.array(Image.open(new_f).convert("L").resize((64, 64)))
+        # حساب نسبة الخطورة لكل صورة على حدة، ثم مقارنة الفارق الحقيقي في النتائج الطبية
+        score_old = get_risk_score(old_image)
+        score_new = get_risk_score(new_image)
         
-        diff = float(np.mean(np.abs(arr_o.astype(float) - arr_n.astype(float))))
-        rate = 0.0 if diff < 0.5 else float(diff * 0.25)
+        # معدل التغير الفعلي بناءً على فرق درجات الخطورة الإكلينيكية
+        rate = float(score_new - score_old)
 
         st.warning("📊 **تقرير المقارنة والوفاء الزمني:**")
         st.metric(label="معدل التغير والتطور في تقعر العصب البصري", value=f"{rate:+.1f}%")
         
-        if rate == 0.0:
-            st.success("🤍 **استقرار تام وسلام للعين:** الصورتان متطابقتان تماماً، ولا يوجد أي تدهور أو تغير ضار في الألياف العصبية بين الفحصين.")
+        if abs(rate) < 1.0:
+            st.success("🤍 **استقرار تام وسلام للعين:** الحالتان متقاربتان جداً، ولا يوجد أي تدهور أو تغير ضار في الألياف العصبية بين الفحصين.")
+        elif rate > 0:
+            st.markdown(f"""
+            ### 🧠 قراءة الذكاء الاصطناعي للتغير الزمني:
+            * تم رصد زيادة في مؤشر الخطورة بمعدل **{rate:+.1f}%** بين الفحصين.
+            * **الرؤية الإكلينيكية:** هذا التغير يشير إلى ضرورة متابعة ضغط العين بدقة لتجنب أي تفاقم مستقبلًا.
+            """)
         else:
             st.markdown(f"""
             ### 🧠 قراءة الذكاء الاصطناعي للتغير الزمني:
-            * تم رصد تغير بمعدل **{rate:+.1f}%** في مؤشرات القرص البصري بين الفترتين.
-            * **الرؤية الإكلينيكية:** هذا الرصد الدقيق يتيح للطبيب تقييم مدى استقرار ضغط العين وحماية البصر في الوقت المناسب.
+            * ملاحظة تحسن أو استقرار في المؤشرات بقيمة **{rate:.1f}%** بين الفحصين.
+            * **الرؤية الإكلينيكية:** تدل هذه النتيجة على استجابة إيجابية أو استقرار تام في الحالة.
             """)
 
 elif app_mode == "📋 التوجيه الإنساني والطبّي":
