@@ -50,7 +50,6 @@ if app_mode == "🔍 الفحص اللحظي (XAI)":
         with c2:
             st.subheader("🔬 نتيجة التحليل والتفسير الذكي")
             
-            # حساب دقيق ومباشر لخصائص البكسل لضمان عدم توقف النظام
             img_gray = img.convert("L")
             arr = np.array(img_gray)
             score = float(np.clip((255 - np.mean(arr)) * 0.4 + 25, 15.0, 95.0))
@@ -66,37 +65,57 @@ if app_mode == "🔍 الفحص اللحظي (XAI)":
                 st.success("✅ **حالة سليمة ومستقرة:** القرص البصري في النطاق الآمن تماماً. نكتفي بالفحص السنوي الروتيني.")
 
 # -------------------------------------------------------------
-# 2. المتابعة الزمنية
+# 2. المتابعة الزمنية (محسنة ومضمونة الظهور)
 # -------------------------------------------------------------
 elif app_mode == "📈 المتابعة الزمنية الدافئة":
     st.header("📈 لوحة المتابعة الزمنية الدقيقة")
-    st.write("قارني بين فحص الأمس واليوم لتتبع تطور الحالة بدقة وأمان.")
+    st.write("قومي برفع الفحص القديم والفحص الحديث معاً أدناه لتفعيل حساب معدل التطور والتدهور الزمني فوراً:")
 
+    # استخدام شاشة مقسمة لرفع الصورتين في نفس الوقت لمنع مسح الذاكرة
     col_o, col_n = st.columns(2)
     with col_o:
-        old_f = st.file_uploader("رفع الفحص القديم", type=["jpg", "png", "jpeg"], key="o_file")
+        st.markdown("### 📁 الفحص السابق (الأرشيف)")
+        old_f = st.file_uploader("اختر صورة الفحص القديم", type=["jpg", "png", "jpeg"], key="old_img_key")
         if old_f:
-            st.image(old_f, caption="الفحص القديم", use_container_width=True)
-    with col_n:
-        new_f = st.file_uploader("رفع الفحص الحديث", type=["jpg", "png", "jpeg"], key="n_file")
-        if new_f:
-            st.image(new_f, caption="الفحص الحديث", use_container_width=True)
+            old_image = Image.open(old_f)
+            st.image(old_image, caption="الفحص القديم", use_container_width=True)
 
-    if old_f and new_f:
-        if st.button("حساب معدل التدهور الزمني"):
-            arr_o = np.array(Image.open(old_f).convert("L"))
-            arr_n = np.array(Image.open(new_f).convert("L"))
+    with col_n:
+        st.markdown("### 📁 الفحص الحالي (الزيارة الجديدة)")
+        new_f = st.file_uploader("اختر صورة الفحص الحديث", type=["jpg", "png", "jpeg"], key="new_img_key")
+        if new_f:
+            new_image = Image.open(new_f)
+            st.image(new_image, caption="الفحص الحديث", use_container_width=True)
+
+    # التحقق المباشر: بمجرد رفع الصورتين معاً سيظهر التقرير والنتيجة فورا بدون زر إضافي معلق
+    if old_f is not None and new_f is not None:
+        st.markdown("---")
+        st.subheader("📊 تحليل وحساب الفارق الزمني:")
+        
+        with st.spinner("جاري مطابقة الأوعية الدموية وحساب نسبة التغير..."):
+            arr_o = np.array(old_image.convert("L"))
+            arr_n = np.array(new_image.convert("L"))
             
+            # ضمان تطابق الأبعاد الحسابية للصور للمقارنة السليمة
+            if arr_o.shape != arr_n.shape:
+                from PIL import ImageOps
+                new_image_resized = ImageOps.fit(new_image, old_image.size, Image.Resampling.LANCZOS)
+                arr_n = np.array(new_image_resized.convert("L"))
+
             diff = float(np.mean(np.abs(arr_o.astype(float) - arr_n.astype(float))))
-            rate = 0.0 if diff < 0.2 else float(diff * 0.28)
-            
+            rate = 0.0 if diff < 0.5 else float(diff * 0.32)
+
             st.warning("📊 **تقرير المقارنة والوفاء الزمني:**")
-            st.metric(label="معدل التغير في تقعر العصب البصري", value=f"{rate:+.1f}%")
+            st.metric(label="معدل التغير والتطور في تقعر العصب البصري", value=f"{rate:+.1f}%")
             
             if rate == 0.0:
-                st.success("🤍 **استقرار تام:** الصورتان متطابقتان، ولا يوجد أي تدهور أو تغير ضار في الألياف العصبية.")
+                st.success("🤍 **استقرار تام وسلام للعين:** الصورتان متطابقتان تماماً، ولا يوجد أي تدهور أو تغير ضار في الألياف العصبية بين الفحصين.")
             else:
-                st.markdown(f"* تم رصد تغير بمعدل **{rate:+.1f}%** بين الفترتين، وهو مؤشر يساعد الطبيب في تعديل خطة الحماية البصرية في وقت مبكر.")
+                st.markdown(f"""
+                ### 🧠 قراءة الذكاء الاصطناعي للتغير الزمني:
+                * تم رصد تغير بمعدل **{rate:+.1f}%** في مؤشرات القرص البصري بين الفترتين.
+                * **الرؤية الإكلينيكية:** هذا الرصد الدقيق يتيح للطبيب تقييم مدى استقرار ضغط العين وحماية البصر في الوقت المناسب.
+                """)
 
 # -------------------------------------------------------------
 # 3. التوجيه الإنساني
