@@ -5,8 +5,8 @@ import time
 
 # إعدادات الواجهة وخصائص الصفحة
 st.set_page_config(
-    page_title="OrosVision AI - Clinical Platform",
-    page_icon="👁️",
+    page_title="OrosVision AI ",
+    page_icon="🕯️",
     layout="wide"
 )
 
@@ -18,33 +18,33 @@ if 'page' not in st.session_state:
 if st.session_state.page == 'splash':
     st.markdown("<br><br><br>", unsafe_allow_html=True)
     st.markdown("<h1 style='text-align: center; color: #0d3b66;'>👁️ OrosVision AI</h1>", unsafe_allow_html=True)
-    st.markdown("<h3 style='text-align: center; color: #2e6930;'>نحمي بصراً.. لنضيء حياةً 🤍</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center; color: #2e6930;'>رُؤيةٌ تَستَبِقُ الظَّلام</h3>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center; color: #555;'>منصة الذكاء الاصطناعي التفسيري للفحص المبكر والمتابعة الزمنية الدقيقة للجلوكوما</p>", unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns([1, 1, 1])
     with col2:
         st.markdown("<br>", unsafe_allow_html=True)
-        if st.button("🚀 الدخول إلى المنصة الطبية", use_container_width=True):
+        if st.button("⚕️الدخول إلى المنصة الطبية", use_container_width=True):
             st.session_state.page = 'intake'
             st.rerun()
             
     st.stop()
 
 # شريط تنقل أفقي احترافي وراقي في الأعلى
-st.title("👁️ OrosVision AI: Clinical Intelligence Platform")
+st.title("🕯️ OrosVision AI: Clinical Intelligence Platform")
 nav_col1, nav_col2, nav_col3, nav_col4 = st.columns(4)
 
 with nav_col1:
-    if st.button("📝 1. بيانات المريض", use_container_width=True):
+    if st.button("١ـ بيانَات المريض📝", use_container_width=True):
         st.session_state.page = 'intake'
 with nav_col2:
-    if st.button("🔍 2. الفحص الذكي (AI)", use_container_width=True):
+    if st.button("٢ـ الفحص الذّكي (AI)", use_container_width=True):
         st.session_state.page = 'screening'
 with nav_col3:
-    if st.button("📈 3. المتابعة الزمنية", use_container_width=True):
+    if st.button("٣ـ المُتابعة الزمنِية📈", use_container_width=True):
         st.session_state.page = 'temporal'
 with nav_col4:
-    if st.button("📚 4. التوعية الطبية", use_container_width=True):
+    if st.button(" ٤ـ التوعِية الطبية🔅", use_container_width=True):
         st.session_state.page = 'awareness'
 
 st.markdown("---")
@@ -59,8 +59,8 @@ if st.session_state.page == 'intake':
     with st.form("patient_intake_form"):
         col1, col2 = st.columns(2)
         with col1:
-            p_name = st.text_input("اسم المريض الثلاثي أو كود الملف الطبي *")
-            p_age = st.number_input("العمر *", min_value=1, max_value=120, value=45)
+            p_name = st.text_input("اسم المريض الثلاثي/ كود الملف الطبي ")
+            p_age = st.number_input("العمر ", min_value=1, max_value=120, value=45)
         with col2:
             p_gender = st.selectbox("الجنس", ["ذكر", "أنثى"])
             p_phone = st.text_input("رقم الهواتف / للتواصل الطارئ")
@@ -74,9 +74,9 @@ if st.session_state.page == 'intake':
         with c_diag3:
             has_family = st.checkbox("تاريخ عائلي للإصابة بالجلوكوما")
 
-        eye_notes = st.text_area("أية أمراض سابقة بالعين أو أدوية قطرات مستخدمة حالياً:")
+        eye_notes = st.text_area("هل يعاني المرِيض من اي امراض؟ او هل يتناول اي نوع من الأدوية؟")
 
-        submitted = st.form_submit_button("حفظ الاعتماد والانتقال للفحص ➡️")
+        submitted = st.form_submit_button(" Submit")
         if submitted:
             if not p_name.strip():
                 st.error("❌ عذراً، يجب تسجيل اسم المريض أو كود الملف الطبي أولاً لضمان دقة التشخيص!")
