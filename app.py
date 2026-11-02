@@ -12,102 +12,76 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# تخصيص CSS احترافي: خطوط واضحة، أحجام متدرجة، وألوان طبية متناسقة وفاخرة
+# تخصيص CSS متطور: خطوط عربية فخمة وسميكة، أحجام متناسقة، وواجهة طبية راقية
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&family=Inter:wght@500;600;700&display=swap');
     
     html, body, [class*="css"], .stApp {
         font-family: 'Cairo', 'Inter', sans-serif !important;
         direction: rtl;
-        background-color: #f1f5f9 !important;
+        background-color: #f4f6f9 !important;
         color: #0f172a !important;
     }
     
     /* بطاقات العرض الطبية الفاخرة */
     .med-card {
         background: #ffffff;
-        border-radius: 22px;
-        padding: 30px;
-        box-shadow: 0 12px 35px rgba(30, 58, 138, 0.06);
+        border-radius: 24px;
+        padding: 32px;
+        box-shadow: 0 12px 35px rgba(30, 58, 138, 0.07);
         border: 1.5px solid #e2e8f0;
         margin-bottom: 25px;
         transition: all 0.3s ease;
     }
     
     .med-card:hover {
-        box-shadow: 0 18px 40px rgba(30, 58, 138, 0.1);
-    }
-
-    /* الهيدر أو البانر الرئيسي للوجو والشعار */
-    .hero-banner {
-        background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%);
-        border-radius: 24px;
-        padding: 40px;
-        color: #ffffff !important;
-        text-align: center;
-        box-shadow: 0 15px 35px rgba(29, 78, 216, 0.25);
-        margin-bottom: 30px;
-    }
-
-    .hero-banner h1 {
-        color: #ffffff !important;
-        font-size: 42px !important;
-        font-weight: 900 !important;
-        margin-bottom: 12px;
-        letter-spacing: -0.5px;
-    }
-
-    .hero-banner h3 {
-        color: #93c5fd !important;
-        font-size: 24px !important;
-        font-weight: 700 !important;
-        margin-top: 0;
+        box-shadow: 0 18px 45px rgba(30, 58, 138, 0.12);
     }
     
-    /* تنسيق الحقول والنماذج بوضوح وبخطوط سميكة */
+    /* تنسيق الحقول والنماذج بوضوح وبخطوط سميكة وبارزة */
     input, textarea, select, div[data-baseweb="select"] > div {
         background-color: #ffffff !important;
         color: #0f172a !important;
         border: 2px solid #cbd5e1 !important;
-        border-radius: 12px !important;
+        border-radius: 14px !important;
         font-size: 16px !important;
-        font-weight: 600 !important;
-        padding: 12px 16px !important;
+        font-weight: 700 !important;
+        padding: 14px 18px !important;
     }
     
     input:focus, textarea:focus {
-        border-color: #2563eb !important;
-        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15) !important;
+        border-color: #1e3a8a !important;
+        box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.15) !important;
     }
     
-    /* تدرج أحجام الخطوط لتكون مقروءة ومرتبة */
+    /* أحجام الخطوط الواضحة والاحترافية */
     p, span, label, li {
-        font-size: 16px !important;
+        font-size: 17px !important;
         font-weight: 600 !important;
         color: #334155 !important;
-        line-height: 1.7;
+        line-height: 1.8;
     }
     
     h1 {
-        font-size: 36px !important;
+        font-size: 38px !important;
         font-weight: 900 !important;
         color: #1e3a8a !important;
     }
     
     h2 {
-        font-size: 26px !important;
+        font-size: 28px !important;
         font-weight: 800 !important;
         color: #1e3a8a !important;
     }
     
     h3, h4 {
-        font-size: 20px !important;
+        font-size: 22px !important;
         font-weight: 700 !important;
         color: #1e40af !important;
     }
     
-    /* الأزرار العلوية ونظام التبويب بتصميم عصري بارز */
+    /* أزرار التنقل والتبويب بتصميم عصري بارز */
     .stButton>button {
         font-family: 'Cairo', sans-serif !important;
         border-radius: 14px !important;
@@ -134,7 +108,7 @@ st.markdown("""
 if 'page' not in st.session_state:
     st.session_state.page = 'splash'
 
-# دالة ذكية للبحث عن اللوجو محلياً بغض النظر عن الاسم الطويل أو المختصر
+# دالة ذكية للبحث عن اللوجو محلياً بغض النظر عن الاسم
 def find_logo():
     if os.path.exists("logo.png"):
         return "logo.png"
@@ -153,20 +127,14 @@ if st.session_state.page == 'splash':
         logo_path = find_logo()
         if logo_path:
             st.image(logo_path, use_container_width=True)
-        else:
-            st.markdown("""
-                <div class="hero-banner">
-                    <h1>OROSVISION AI</h1>
-                    <h3>رُؤيةٌ تَسْتَبِقُ الظَّلام</h3>
-                </div>
-            """, unsafe_allow_html=True)
 
+    # تكبير وتوضيح شعار "رؤية تستبق الظلام" ليكون النجم البارز في الواجهة
     st.markdown("""
-        <div class="med-card" style="text-align: center; max-width: 800px; margin: 0 auto 30px auto;">
-            <h1 style="color: #1e3a8a; margin-top: 0; font-size: 32px !important;">رُؤيةٌ تَسْتَبِقُ الظَّلام</h1>
-            <h3 style="color: #2563eb; margin-bottom: 15px;">Vision Preceding the Darkness</h3>
-            <p style="font-size: 17px !important; color: #475569; line-height: 1.8;">
-                Advanced Explainable AI (XAI) Translational Medical Platform for Early Glaucoma Screening and Longitudinal Fundus Monitoring via 20D Smartphone Optical Adapter.
+        <div class="med-card" style="text-align: center; max-width: 820px; margin: 20px auto;">
+            <h1 style="color: #1e3a8a; font-size: 42px !important; font-weight: 900 !important; margin-bottom: 8px;">رُؤيةٌ تَسْتَبِقُ الظَّلام</h1>
+            <h3 style="color: #2563eb; font-size: 24px !important; font-weight: 700 !important; margin-bottom: 20px;">Vision Preceding the Darkness</h3>
+            <p style="font-size: 18px !important; color: #475569; line-height: 1.8;">
+                منصة طبية تشخيصية متطورة تدمج الذكاء الاصطناعي التفسيري (XAI) وعدسة الهواتف الذكية لاكتشاف الجلوكوما مبكراً ومتابعة تطور العصب البصري عبر الزمن.
             </p>
         </div>
     """, unsafe_allow_html=True)
@@ -181,8 +149,8 @@ if st.session_state.page == 'splash':
 
 # الهيدر الطبي العلوي (Navigation Bar)
 st.markdown("""
-    <div style="background: #ffffff; padding: 22px; border-radius: 18px; border: 2px solid #e2e8f0; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
-        <h2 style="margin:0; color: #1e3a8a; font-size: 24px !important;">OrosVision AI &nbsp;<span style="font-size: 15px; color: #64748b; font-weight: 600;">| Translational Clinical Screening Platform</span></h2>
+    <div style="background: #ffffff; padding: 24px; border-radius: 20px; border: 2px solid #e2e8f0; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+        <h2 style="margin:0; color: #1e3a8a; font-size: 26px !important;">OrosVision AI &nbsp;<span style="font-size: 16px; color: #64748b; font-weight: 600;">| Translational Clinical Screening Platform</span></h2>
     </div>
 """, unsafe_allow_html=True)
 
@@ -223,7 +191,7 @@ if st.session_state.page == 'intake':
             p_gender = st.selectbox("الجنس (Gender)", ["ذكر (Male)", "أنثى (Female)"])
             p_phone = st.text_input("رقم الهاتف للتواصل الطارئ (Phone Number)")
 
-        st.markdown("<h3 style='color: #1e3a8a; margin-top: 20px;'>🧬 التاريخ المرضي وعوامل الخطورة (Clinical History & Risk Profile):</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='color: #1e3a8a; margin-top: 22px;'>🧬 التاريخ المرضي وعوامل الخطورة (Clinical History & Risk Profile):</h3>", unsafe_allow_html=True)
         c_diag1, c_diag2, c_diag3 = st.columns(3)
         with c_diag1:
             has_diabetes = st.checkbox("مرض السكري (Diabetes Mellitus)")
@@ -363,12 +331,22 @@ elif st.session_state.page == 'temporal':
         st.markdown("</div>", unsafe_allow_html=True)
 
 # -------------------------------------------------------------
-# الصفحة الرابعة: التوعية الطبية
+# الصفحة الرابعة: التوعية الطبية (محدثة لتكون ملامسة للقلب)
 # -------------------------------------------------------------
 elif st.session_state.page == 'awareness':
     st.markdown("""
         <div class="med-card">
-            <h2 style="color: #1e3a8a; margin-top:0;">📚 التوعية الطبية والدليل الإرشادي للجلوكوما (Medical Awareness)</h2>
-            <p>الجلوكوما هي المسبب الرئيسي الثاني للعمى غير المرتجع عالمياً (WHO). الفحص المبكر بالذكاء الاصطناعي يرفع نسبة الوقاية وتجنب فقدان البصر إلى أكثر من <b>90%</b>.</p>
+            <h2 style="color: #1e3a8a; margin-top:0;">💡 رسالة أمل ونبض إنساني | Medical Awareness & Heart</h2>
+            <p style="font-size: 19px !important; color: #1e3a8a; font-weight: 700 !important; line-height: 1.8; margin-bottom: 20px;">
+                "النور هو أغلى ما يمتلكه الإنسان لرؤية أحبابه وجمال هذا العالم.. والجلوكوما تُعرف بـ (اللص الصامت للبصر) لأنها تسرق النور تدريجياً وبدون ألم."
+            </p>
+            <p style="font-size: 17px !important; color: #334155; line-height: 1.8;">
+                لأننا نؤمن أن كل عين تستحق أن تستمر في رؤية النور، ولأن الكشف المبكر يحمي أكثر من <b>90%</b> من المرضى من فقدان البصر الدائم (وفقاً لتقديرات منظمة الصحة العالمية)، وُلدت منصة <b>OrosVision AI</b>.. لكي نكون درعاً وقائياً يحمي العيون قبل أن يمتد إليها الظلام. 
+            </p>
+            <div style="margin-top: 25px; padding: 20px; background: #eff6ff; border-radius: 16px; border-right: 5px solid #1e3a8a;">
+                <p style="margin: 0; color: #1e40af; font-weight: 700;">
+                    ✨ رسالتنا في ISEF: أن نجعل الفحص الطبي المبكر متاحاً، سريعاً، وبسيطاً في كل بيت.. لأن النور حقٌّ لكل عيون العالم.
+                </p>
+            </div>
         </div>
     """, unsafe_allow_html=True)
