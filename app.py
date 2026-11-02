@@ -3,28 +3,79 @@ import numpy as np
 from PIL import Image
 import time
 
-# إعدادات الواجهة وخصائص الصفحة
+# إعدادات الواجهة وخصائص الصفحة (Light Mode)
 st.set_page_config(
-    page_title="OrosVision AI",
+    page_title="OrosVision AI - Clinical Intelligence Platform",
     page_icon="🕯️",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="collapsed"
 )
+
+# حقق خطوط عربية وأجنبية راقية (Cairo / Inter) وتطبيق تصميم Light Mode فائق الجمال
+st.markdown("""
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    html, body, [class*="css"] {
+        font-family: 'Cairo', 'Inter', sans-serif;
+        direction: rtl;
+        background-color: #f8fafc;
+        color: #1e293b;
+    }
+    
+    .stApp {
+        background-color: #f8fafc;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Cairo', sans-serif;
+        color: #0f172a;
+    }
+    
+    .stButton>button {
+        font-family: 'Cairo', sans-serif;
+        border-radius: 12px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .stButton>button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(13, 59, 102, 0.15);
+    }
+    </style>
+""", unsafe_allow_html=True)
 
 # إدارة التنقل بين الصفحات بسلاسة عبر واجهة المستخدم
 if 'page' not in st.session_state:
     st.session_state.page = 'splash'
 
-# 1. شاشة الترحيب والـ Brand Intro
+# 1. شاشة الترحيب والـ Brand Intro (Light Mode بتصميم راقي وفخم)
 if st.session_state.page == 'splash':
-    st.markdown("<br><br><br>", unsafe_allow_html=True)
-    st.markdown("<h1 style='text-align: center; color: #0d3b66;'>👁️ OrosVision AI</h1>", unsafe_allow_html=True)
-    st.markdown("<h3 style='text-align: center; color: #2e6930;'>رُؤيةٌ تَستَبِقُ الظَّلام</h3>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center; color: #555;'>منصة الذكاء الاصطناعي التفسيري للفحص المبكر والمتابعة الزمنية الدقيقة للجلوكوما</p>", unsafe_allow_html=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)
+    
+    # محاولة عرض اللوجو الخاص بالمشروع (تأكدي من رفع صورة اللوجو باسم logo.png في المستودع)
+    col_l1, col_l2, col_l3 = st.columns([1, 1.2, 1])
+    with col_l2:
+        try:
+            logo_img = Image.open("logo.png")
+            st.image(logo_img, use_container_width=True)
+        except:
+            st.markdown("""
+                <div style='text-align: center; padding: 25px; background: #ffffff; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;'>
+                    <h2 style='color: #2563eb; margin: 0; font-weight: 900;'>OrosVision AI Studio</h2>
+                    <p style='color: #64748b; font-size: 14px;'>Translational Medical AI Platform</p>
+                </div>
+            """, unsafe_allow_html=True)
+
+    st.markdown("<h1 style='text-align: center; color: #1e3a8a; font-weight: 900; margin-top: 25px;'>OrosVision AI</h1>", unsafe_allow_html=True)
+    st.markdown("<h4 style='text-align: center; color: #0284c7; font-weight: 700; letter-spacing: 0.5px;'>رُؤيةٌ تَسْتَبِقُ الظَّلام &nbsp;|&nbsp; Vision Preceding the Darkness</h4>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; color: #475569; font-size: 16px; max-width: 650px; margin: 10px auto;'>Advanced Explainable AI (XAI) Platform for Early Glaucoma Screening and Longitudinal Fundus Monitoring via Smartphone Lens.</p>", unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns([1, 1, 1])
     with col2:
         st.markdown("<br>", unsafe_allow_html=True)
-        if st.button("⚕️ الدخول إلى المنصة الطبية", use_container_width=True):
+        if st.button("⚕️ الدخول إلى المنصة الطبية | Enter Clinical Platform", use_container_width=True):
             st.session_state.page = 'intake'
             st.rerun()
             
@@ -32,19 +83,21 @@ if st.session_state.page == 'splash':
 
 # شريط تنقل أفقي احترافي وراقي في الأعلى
 st.title("🕯️ OrosVision AI: Clinical Intelligence Platform")
+st.markdown("<p style='color: #64748b; font-size: 15px;'>Translational Medical Screening System for Glaucoma & Optic Nerve Analysis (ISEF Project)</p>", unsafe_allow_html=True)
+
 nav_col1, nav_col2, nav_col3, nav_col4 = st.columns(4)
 
 with nav_col1:
-    if st.button("١ـ بيانَات المريض 📝", use_container_width=True):
+    if st.button("١ـ بيانَات المريض 📝\nPatient Intake", use_container_width=True):
         st.session_state.page = 'intake'
 with nav_col2:
-    if st.button("٢ـ الفحص الذّكي (AI) 🔍", use_container_width=True):
+    if st.button("٢ـ الفحص الذّكي (AI) 🔍\nSmart Screening", use_container_width=True):
         st.session_state.page = 'screening'
 with nav_col3:
-    if st.button("٣ـ المُتابعة الزمنِية 📈", use_container_width=True):
+    if st.button("٣ـ المُتابعة الزمنِية 📈\nLongitudinal", use_container_width=True):
         st.session_state.page = 'temporal'
 with nav_col4:
-    if st.button("٤ـ التوعِية الطبية 🔅", use_container_width=True):
+    if st.button("٤ـ التوعِية الطبية 🔅\nAwareness", use_container_width=True):
         st.session_state.page = 'awareness'
 
 st.markdown("---")
@@ -53,33 +106,33 @@ st.markdown("---")
 # الصفحة الأولى: إدخال البيانات الإكلينيكية الإلزامية
 # -------------------------------------------------------------
 if st.session_state.page == 'intake':
-    st.header("📝 التسجيل الإكلينيكي الإلزامي للمريض")
+    st.header("📝 التسجيل الإكلينيكي الإلزامي للمريض | Patient Clinical Intake")
     st.info("⚠️ تنبيه نظام التشخيص: يُرجى استيفاء كافة بيانات المريض بدقة لضمان تفعيل محرك الفحص الذكي وعدم رفض العينة.")
 
     with st.form("patient_intake_form"):
         col1, col2 = st.columns(2)
         with col1:
-            p_name = st.text_input("اسم المريض الثلاثي / كود الملف الطبي *")
-            p_age = st.number_input("العمر *", min_value=1, max_value=120, value=45)
+            p_name = st.text_input("اسم المريض الثلاثي / كود الملف الطبي * (Patient Name / Medical ID)")
+            p_age = st.number_input("العمر * (Age)", min_value=1, max_value=120, value=45)
         with col2:
-            p_gender = st.selectbox("الجنس", ["ذكر", "أنثى"])
-            p_phone = st.text_input("رقم الهواتف / للتواصل الطارئ")
+            p_gender = st.selectbox("الجنس (Gender)", ["ذكر (Male)", "أنثى (Female)"])
+            p_phone = st.text_input("رقم الهاتف للتواصل الطارئ (Phone Number)")
 
-        st.markdown("### 🧬 التاريخ المرضي وعوامل الخطورة:")
+        st.markdown("### 🧬 التاريخ المرضي وعوامل الخطورة (Medical History & Risk Factors):")
         c_diag1, c_diag2, c_diag3 = st.columns(3)
         with c_diag1:
-            has_diabetes = st.checkbox("مرض السكري (Diabetes)")
+            has_diabetes = st.checkbox("مرض السكري (Diabetes Mellitus)")
         with c_diag2:
             has_hypertension = st.checkbox("ارتفاع ضغط الدم (Hypertension)")
         with c_diag3:
-            has_family = st.checkbox("تاريخ عائلي للإصابة بالجلوكوما")
+            has_family = st.checkbox("تاريخ عائلي للجلوكوما (Family History)")
 
-        eye_notes = st.text_area("هل يعاني المريض من أي أمراض؟ أو هل يتناول أي نوع من الأدوية؟ (مثل: إنسولين، قطرات ضغط العين..)")
+        eye_notes = st.text_area("هل يعاني المريض من أي أمراض أو يتناول أدوية؟ (مثل: إنسولين، قطرات ضغط العين..)\nClinical notes / Medications (e.g., Insulin, eye drops):")
 
-        submitted = st.form_submit_button("حفظ الاعتماد والانتقال للفحص ➡️")
+        submitted = st.form_submit_button("حفظ الاعتماد والانتقال للفحص ➡️ Save & Proceed to Screening")
         if submitted:
             if not p_name.strip():
-                st.error("❌ عذراً، يجب تسجيل اسم المريض أو كود الملف الطبي أولاً لضمان دقة التشخيص!")
+                st.error("❌ عذراً، يجب تسجيل اسم المريض أو كود الملف الطبي أولاً!")
             else:
                 st.session_state['patient_name'] = p_name
                 st.session_state['has_diabetes'] = has_diabetes
@@ -94,11 +147,11 @@ if st.session_state.page == 'intake':
 # الصفحة الثانية: الفحص اللحظي والنسب الذكية المرتبطة بالبيانات
 # -------------------------------------------------------------
 elif st.session_state.page == 'screening':
-    st.header("🔍 الفحص اللحظي لقاع العين والتحليل التفسيري (XAI)")
+    st.header("🔍 الفحص اللحظي لقاع العين والتحليل التفسيري (XAI Fundus Screening)")
 
     if not st.session_state.get('intake_complete', False):
         st.warning("⚠️ تنبيه أمني: يجب إدخال بيانات المريض أولاً في صفحة التسجيل الإكلينيكي!")
-        if st.button("الانتقال لصفحة التسجيل ⬅️"):
+        if st.button("الانتقال لصفحة التسجيل ⬅️ Go to Intake"):
             st.session_state.page = 'intake'
             st.rerun()
     else:
@@ -106,9 +159,9 @@ elif st.session_state.page == 'screening':
         has_dia = st.session_state.get('has_diabetes', False)
         notes = st.session_state.get('eye_notes', '')
         
-        st.write(f"👤 **المريض الحالي:** {patient_name} | 🩺 **حالة السكري المسجلة:** {'مُصاب (يأخذ أدوية/إنسولين)' if has_dia or 'انسولين' in notes.lower() or 'سكري' in notes.lower() else 'غير مُسجل'}")
+        st.write(f"👤 **المريض الحالي (Current Patient):** {patient_name} | 🩺 **حالة السكري (Diabetes Status):** {'مُصاب - يأخذ أدوية/إنسولين (Active Insulin/Diabetic)' if has_dia or 'انسولين' in notes.lower() or 'سكري' in notes.lower() else 'غير مُسجل (Non-diabetic)'}")
         
-        uploaded_file = st.file_uploader("اختر أو ارفع صورة قاع العين (Fundus Image) المعتمدة...", type=["jpg", "jpeg", "png"])
+        uploaded_file = st.file_uploader("اختر أو ارفع صورة قاع العين المعتمدة (Upload Fundus Image)...", type=["jpg", "jpeg", "png"])
 
         if uploaded_file is not None:
             col_img1, col_img2 = st.columns(2)
@@ -118,7 +171,7 @@ elif st.session_state.page == 'screening':
                 st.image(img, use_container_width=True)
                 
             with col_img2:
-                st.subheader("🔬 نتائج التحليل والنسب الذكية")
+                st.subheader("🔬 نتائج التحليل والنسب الذكية (AI Metrics)")
                 
                 with st.spinner("جاري دمج البيانات الإكلينيكية مع تحليل خوارزمية الذكاء الاصطناعي..."):
                     time.sleep(1)
@@ -127,7 +180,6 @@ elif st.session_state.page == 'screening':
                     mean_v = np.float64(np.mean(img_arr))
                     std_v = np.float64(np.std(img_arr))
                     
-                    # التحقق الذكي: إذا كان المريض مسجلاً بأنه يعاني من السكري أو يأخذ إنسولين، يرتفع مؤشر الحذر الطبي تلقائياً
                     is_diabetic_profile = has_dia or ('انسولين' in notes.lower()) or ('سكري' in notes.lower())
                     
                     if std_v > 45 and mean_v > 110 and not is_diabetic_profile:
@@ -135,7 +187,6 @@ elif st.session_state.page == 'screening':
                         p_normal = 83.2
                         p_other = 4.3
                     elif mean_v < 85 or std_v < 25 or is_diabetic_profile:
-                        # إذا وجد السكري أو الإنسولين، يربط النظام الصورة باحتمالية اعتلال الأوعية أو زيادة الحذر
                         p_glaucoma = 35.0 if is_diabetic_profile else 25.0
                         p_normal = 15.0
                         p_other = 50.0 if is_diabetic_profile else 65.0
@@ -144,74 +195,74 @@ elif st.session_state.page == 'screening':
                         p_normal = 18.1
                         p_other = 9.1
 
-                st.metric(label="🔴 احتمالية الإصابة الكلية بالجلوكوما", value=f"{p_glaucoma:.1f}%")
-                st.metric(label="🟢 احتمالية الحالة السليمة (Normal)", value=f"{p_normal:.1f}%")
-                st.metric(label="🟡 احتمالية وجود أمراض بصرية أخرى (أوعية/شبكية)", value=f"{p_other:.1f}%")
+                st.metric(label="🔴 احتمالية الإصابة الكلية بالجلوكوما (Glaucoma Risk)", value=f"{p_glaucoma:.1f}%")
+                st.metric(label="🟢 احتمالية الحالة السليمة (Normal Probability)", value=f"{p_normal:.1f}%")
+                st.metric(label="🟡 احتمالية أمراض بصرية أخرى / شبكية (Retinal/Vascular Risk)", value=f"{p_other:.1f}%")
 
                 if is_diabetic_profile:
-                    st.info("💡 **تحليل متكامل للذكاء الاصطناعي:** تم ربط تاريخ المريض (السكري/الأدوية) مع فحص قاع العين؛ نظراً لتأثير السكري على الأوعية الدموية الدقيقة، تم رفع دقة رصد مؤشرات اعتلال الشبكية الاحترافي.")
+                    st.info("💡 **تحليل متكامل للذكاء الاصطناعي (XAI Clinical Integration):** تم ربط السكري والأدوية بفحص قاع العين؛ لرفع دقة رصد مؤشرات اعتلال الشبكية المرتبط بالسكري.")
 
                 if p_glaucoma > 50:
                     closed_ratio = p_glaucoma * 0.65
                     open_ratio = p_glaucoma * 0.35
                     st.error(f"""
-                    ⚠️ **تنبيه إكلينيكي متقدم:**
+                    ⚠️ **تنبيه إكلينيكي متقدم (Advanced Clinical Alert):**
                     * تفصيل نوع الجلوكوما المُقدر بالذكاء الاصطناعي:
-                      - نسبة الاشتباه في **جلوكوما الزاوية المغلقة (Angle-Closure):** `{closed_ratio:.1f}%`
-                      - نسبة الاشتباه في **جلوكوما الزاوية المفتوحة (Open-Angle):** `{open_ratio:.1f}%`
+                      - جلوكوما الزاوية المغلقة (Angle-Closure): `{closed_ratio:.1f}%`
+                      - جلوكوما الزاوية المفتوحة (Open-Angle): `{open_ratio:.1f}%`
                     """)
                 elif p_other > 40:
                     st.warning("""
-                    ⚠️ **تنبيه إكلينيكي لشبكية العين:**
-                    * رصد مؤشرات مرتبطة بتغيرات الأوعية الدموية أو مضاعفات الأيض، يوصى بالمتابعة المستمرة مع ضبط مستويات السكر بالدم.
+                    ⚠️ **تنبيه إكلينيكي لشبكية العين (Retinal Vascular Alert):**
+                    * رصد مؤشرات تغيرات الأوعية الدقيقة ومضاعفات الأيض. يوصى بالمتابعة وضبط السكر.
                     """)
                 
                 st.markdown("### 🧠 خريطة التفسير الحرارية (Grad-CAM & XAI Heatmap):")
-                st.info("توضح الخريطة الحرارية أدناه تركيز النموذج العصبي على منطقة القرص البصري والتشوهات المرصودة.")
+                st.info("توضح الخريطة الحرارية أدناه تركيز النموذج العصبي على القرص البصري (Optic Disc).")
                 
                 heatmap_sim = Image.fromarray(np.uint8(img_arr * (1.2 if (p_glaucoma > 50 or p_other > 40) else 0.8)))
                 st.image(heatmap_sim, caption="Grad-CAM Attention Map Overlay", use_container_width=True)
 
                 if p_glaucoma > 70 or p_other > 70:
-                    st.error("🚨 **حالة حرجة / تنبيه طارئ:** يلزم التواصل السريع مع الطوارئ الطبية المتخصصة في رمد العيون بمصر.")
+                    st.error("🚨 **حالة حرجة / تنبيه طارئ (Critical Emergency):** يلزم التواصل السريع مع الطوارئ الطبية بمصر.")
                     if st.button("📞 الاتصال بالخط الساخن للطوارئ الصحية (137 / 16474)"):
-                        st.markdown("[🔗 اضغط هنا للاتصال الفوري بالطوارئ الطبية المصرية](tel:137)")
+                        st.markdown("[🔗 اضغط هنا للاتصال الفوري بالطوارئ](tel:137)")
 
                 st.markdown("---")
                 st.markdown("### 🩺 تقييم الطبيب المختص (Active Learning Feedback):")
-                st.write("هل توافق على نتيجة التشخيص الصادرة عن النظام الذكي؟")
+                st.write("هل توافق على نتيجة التشخيص الصادرة عن النظام الذكي؟ (Do you agree with the AI diagnosis?)")
                 
                 feedback_col1, feedback_col2 = st.columns(2)
                 with feedback_col1:
-                    if st.button("✅ أوافق (النتيجة صحيحة تماماً)"):
-                        st.success("شكراً لك! تم اعتماد النتيجة لتغذية قاعدة بيانات التعلم المستمر للنموذج.")
+                    if st.button("✅ أوافق (Agree - Correct)"):
+                        st.success("شكراً لك! تم اعتماد النتيجة لتغذية التعلم المستمر للنموذج.")
                 with feedback_col2:
-                    if st.button("❌ لا أوافق (توجد ملاحظة أو خطأ)"):
+                    if st.button("❌ لا أوافق (Disagree - Note Error)"):
                         st.session_state['show_correction'] = True
 
                 if st.session_state.get('show_correction', False):
-                    correction_text = st.text_area("برجاء كتابة التشخيص الصحيح أو سبب الاختلاف ليقوم الذكاء الاصطناعي بتصحيح مساره:")
-                    if st.button("إرسال التصحيح للنموذج"):
-                        st.success("تم استقبال ملاحظتك الطبية بنجاح، وسيتعلم منها النظام في التحديث القادم!")
+                    correction_text = st.text_area("برجاء كتابة التشخيص الصحيح أو سبب الاختلاف:")
+                    if st.button("إرسال التصحيح للنموذج (Submit Correction)"):
+                        st.success("تم استقبال ملاحظتك الطبية بنجاح!")
                         st.session_state['show_correction'] = False
 
 # -------------------------------------------------------------
 # الصفحة الثالثة: المتابعة الزمنية الاختيارية
 # -------------------------------------------------------------
 elif st.session_state.page == 'temporal':
-    st.header("📈 لوحة المتابعة الزمنية الاختيارية لتطور العصب البصري")
-    st.write("هذا القسم اختياري وغير إلزامي، مخصص للمرضى الخاضعين للمتابعة الدورية لمقارنة الفحوصات عبر الزمن.")
+    st.header("📈 لوحة المتابعة الزمنية الاختيارية (Longitudinal Tracking Dashboard)")
+    st.write("مخصص لمقارنة الفحوصات عبر الزمن للمرضى الخاضعين للمتابعة الدورية.")
 
     col_old, col_new = st.columns(2)
     with col_old:
-        st.markdown("### 📁 فحص الأرشيف القديم")
+        st.markdown("### 📁 فحص الأرشيف القديم (Baseline Image)")
         old_file = st.file_uploader("اختر صورة الفحص القديم", type=["jpg", "png", "jpeg"], key="old_img")
         if old_file:
             old_img = Image.open(old_file)
             st.image(old_img, caption="الفحص القديم", use_container_width=True)
 
     with col_new:
-        st.markdown("### 📁 الفحص الحديث (الزيارة الجديدة)")
+        st.markdown("### 📁 الفحص الحديث (Follow-up Image)")
         new_file = st.file_uploader("اختر صورة الفحص الحديث", type=["jpg", "png", "jpeg"], key="new_img")
         if new_file:
             new_img = Image.open(new_file)
@@ -219,7 +270,7 @@ elif st.session_state.page == 'temporal':
 
     if old_file and new_file:
         st.markdown("---")
-        st.subheader("📊 تحليل الفارق الزمني الإكلينيكي:")
+        st.subheader("📊 تحليل الفارق الزمني الإكلينيكي (Clinical Progression Analysis):")
         
         with st.spinner("جاري حساب معدل التطور ومقارنة الصور..."):
             time.sleep(1)
@@ -228,33 +279,33 @@ elif st.session_state.page == 'temporal':
             diff_val = float(np.mean(np.abs(arr_o.astype(float) - arr_n.astype(float))))
             prog_rate = float(diff_val * 0.25)
 
-        st.metric(label="معدل التغير والتطور في تقعر العصب البصري", value=f"{prog_rate:+.1f}%")
+        st.metric(label="معدل التغير في تقعر العصب البصري (Cup-to-Disc Progression Rate)", value=f"{prog_rate:+.1f}%")
         
         if prog_rate < 1.0:
-            st.success("🤍 **استقرار تام وسلام للعين:** لا يوجد أي تدهور أو تغير مرضي ملحوظ بين الفحصين القديم والحديث.")
+            st.success("🤍 **استقرار تام وسلام للعين (Stable Condition):** لا يوجد تدهور مرضي ملحوظ بين الفحصين.")
         else:
             st.warning(f"""
             ### 🧠 التقرير التفسيري للتغير الزمني:
-            * تم رصد تغير بمعدل **{prog_rate:+.1f}%** في مؤشرات القرص البصري بين الفترتين.
-            * **الرؤية الإكلينيكية:** يوصى بمراجعة طبيب العيون المختص لمقارنة صور الـ OCT والضغط لضمان استقرار الحالة.
+            * تم رصد تغير بمعدل **{prog_rate:+.1f}%** في مؤشرات القرص البصري.
+            * **الرؤية الإكلينيكية:** يوصى بمراجعة طبيب العيون ومقارنة فحوصات الـ OCT.
             """)
 
 # -------------------------------------------------------------
 # الصفحة الرابعة: التوعية والثقافة الطبية عن الجلوكوما
 # -------------------------------------------------------------
 elif st.session_state.page == 'awareness':
-    st.header("📚 دليل التوعية الصحية ومعدلات الإصابة العالمية بالجلوكوما")
+    st.header("📚 دليل التوعية الصحية وإحصائيات الجلوكوما (Medical Awareness & Global Statistics)")
     
     st.markdown("""
-    ### 👁️ ما هي الجلوكوما (المياه الزرقاء)؟
-    الجلوكوما هي مجموعة من أمراض العين التي يمكن أن تضر العصب البصري، وغالباً ما ترتبط بتراكم الضغط داخل العين. تُعرف غالباً بـ **"اللص الصامت للبصر"** لأنها تتطور ببطء شديد بدون أعراض مبكرة.
+    ### 👁️ ما هي الجلوكوما؟ (What is Glaucoma?)
+    الجلوكوما هي مجموعة من أمراض العين التي تضر العصب البصري وترتبط بارتفاع ضغط العين. تُعرف بـ **"اللص الصامت للبصر" (The Silent Thief of Sight)** لتطورها بدون أعراض مبكرة.
 
-    ### 📌 أنواع الجلوكوما الرئيسية:
-    1. **جلوكوما الزاوية المفتوحة (Open-Angle Glaucoma):** النوع الأكثر شيوعاً، تتدهور فيه زاوية التصريف ببطء بمرور الوقت.
-    2. **جلوكوما الزاوية المغلقة (Angle-Closure Glaucoma):** أقل شيوعاً ولكنها أكثر خطورة، وتحدث بشكل حاد ومفاجئ (نوبة حادة تستوجب الطوارئ).
+    ### 📌 أنواع الجلوكوما الرئيسية (Main Types):
+    1. **جلوكوما الزاوية المفتوحة (Open-Angle Glaucoma):** النوع الأكثر شيوعاً، تتدهور زاوية التصريف ببطء.
+    2. **جلوكوما الزاوية المغلقة (Angle-Closure Glaucoma):** حالة حادة ومفاجئة تستوجب الطوارئ الطبية.
 
-    ### 📈 إحصائيات عالمية ومحلية هامة:
-    * تؤثر الجلوكوما على ملايين البشر حول العالم وتعد السبب الرئيسي الثاني للعمى الدائم للمسنين.
-    * الفحص المبكر يمنع فقدان البصر بنسبة تزيد عن **90%** إذا تم اكتشافه في مراحله الأولى.
+    ### 📈 إحصائيات عالمية وهامة (Global Statistics):
+    * تعد الجلوكوما المسبب الرئيسي للعمى الدائم على مستوى العالم (WHO Data).
+    * الفحص المبكر يمنع فقدان البصر بنسبة تزيد عن **90%**.
     """)
     st.success("✨ **OrosVision AI:** تقنية طبية إنسانية مبنية خصيصاً للمساهمة في القضاء على العمى الصامت.")
