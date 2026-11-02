@@ -10,34 +10,11 @@ st.set_page_config(
     layout="wide"
 )
 
-# تخصيص التصميم والألوان (Cool-undertone palette: Navy, Dark Teal, White)
-st.markdown("""
-    <style>
-    .main {
-        background-color: #f4f6f9;
-    }
-    .stButton>button {
-        background-color: #0d3b66;
-        color: white;
-        border-radius: 8px;
-        padding: 0.5rem 1rem;
-        font-weight: bold;
-    }
-    .stButton>button:hover {
-        background-color: #1d63b8;
-        color: white;
-    }
-    .css-1dp5vir {
-        background-image: linear-gradient(to bottom, #0d3b66, #001e3d);
-    }
-    </style>
-""", unsafe_allow_html=True)
-
-# إدارة التنقل بين الصفحات بسلاسة عبر واجهة المستخدم (بدون القائمة الجانبية الثلاثية)
+# إدارة التنقل بين الصفحات بسلاسة عبر واجهة المستخدم
 if 'page' not in st.session_state:
     st.session_state.page = 'splash'
 
-# 1. شاشة الترحيب والـ Brand Intro (تختفي تلقائياً أو ترحل للصفحة الرئيسية)
+# 1. شاشة الترحيب والـ Brand Intro
 if st.session_state.page == 'splash':
     st.markdown("<br><br><br>", unsafe_allow_html=True)
     st.markdown("<h1 style='text-align: center; color: #0d3b66;'>👁️ OrosVision AI</h1>", unsafe_allow_html=True)
@@ -83,7 +60,7 @@ if st.session_state.page == 'intake':
         col1, col2 = st.columns(2)
         with col1:
             p_name = st.text_input("اسم المريض الثلاثي أو كود الملف الطبي *")
-            p_age = st.number_input("العمر *", min_val=1, max_val=120, value=45)
+            p_age = st.number_input("العمر *", min_value=1, max_value=120, value=45)
         with col2:
             p_gender = st.selectbox("الجنس", ["ذكر", "أنثى"])
             p_phone = st.text_input("رقم الهواتف / للتواصل الطارئ")
@@ -117,7 +94,6 @@ if st.session_state.page == 'intake':
 elif st.session_state.page == 'screening':
     st.header("🔍 الفحص اللحظي لقاع العين والتحليل التفسيري (XAI)")
 
-    # التحقق من إدخال البيانات أولاً
     if not st.session_state.get('intake_complete', False):
         st.warning("⚠️ تنبيه أمني: يجب إدخال بيانات المريض أولاً في صفحة التسجيل الإكلينيكي!")
         if st.button("الانتقال لصفحة التسجيل ⬅️"):
@@ -140,7 +116,6 @@ elif st.session_state.page == 'screening':
                 
                 with st.spinner("جاري استخراج مميزات العصب البصري والتحليل التفسيري..."):
                     time.sleep(1)
-                    # محاكاة تحليل ذكي دقيق للنسب الثلاثية
                     img_arr = np.array(img.convert("L").resize((128, 128)))
                     mean_v = np.float64(np.mean(img_arr))
                     
@@ -153,13 +128,11 @@ elif st.session_state.page == 'screening':
                         p_normal = 18.1
                         p_other = 9.1
 
-                # عرض النسب الثلاثية الإلزامية
                 st.metric(label="🔴 احتمالية الإصابة الكلية بالجلوكوما", value=f"{p_glaucoma:.1f}%")
                 st.metric(label="🟢 احتمالية الحالة السليمة (Normal)", value=f"{p_normal:.1f}%")
                 st.metric(label="🟡 احتمالية وجود أمراض بصرية أخرى", value=f"{p_other:.1f}%")
 
                 if p_glaucoma > 50:
-                    # تفصيل نوع الجلوكوما المفتوحة والمغلقة
                     closed_ratio = p_glaucoma * 0.65
                     open_ratio = p_glaucoma * 0.35
                     st.error(f"""
@@ -172,16 +145,14 @@ elif st.session_state.page == 'screening':
                 st.markdown("### 🧠 خريطة التفسير الحرارية (Grad-CAM & XAI Heatmap):")
                 st.info("توضح الخريطة الحرارية أدناه تركيز النموذج العصبي على منطقة القرص البصري (Optic Disc) واتساع التقعر العصبي المسبب للضغط.")
                 
-                # عرض خريطة حرارية توضيحية مميزة
                 heatmap_sim = Image.fromarray(np.uint8(img_arr * (1.2 if p_glaucoma > 50 else 0.8)))
                 st.image(heatmap_sim, caption="Grad-CAM Attention Map Overlay", use_container_width=True)
 
                 if p_glaucoma > 70:
-                    st.error("🚨 **حالة حرجة / نوبه حادة محتملة:** يلزم التواصل السريع مع الطوارئ الطبية المتخصصة في رمد العيون بمصر.")
+                    st.error("🚨 **حالة حرجة / نوبة حادة محتملة:** يلزم التواصل السريع مع الطوارئ الطبية المتخصصة في رمد العيون بمصر.")
                     if st.button("📞 الاتصال بالخط الساخن للطوارئ الصحية (137 / 16474)"):
                         st.markdown("[🔗 اضغط هنا للاتصال الفوري بالطوارئ الطبية المصرية](tel:137)")
 
-                # قسم تغذية راجعة الطبيب (Active Learning Feedback)
                 st.markdown("---")
                 st.markdown("### 🩺 تقييم الطبيب المختص (Active Learning Feedback):")
                 st.write("هل توافق على نتيجة التشخيص الصادرة عن النظام الذكي؟")
@@ -251,8 +222,8 @@ elif st.session_state.page == 'awareness':
     st.header("📚 دليل التوعية الصحية ومعدلات الإصابة العالمية بالجلوكوما")
     
     st.markdown("""
-    ### 👁️ ما هي الجلوكوما (المياه الأزرق)؟
-    الجلوكوما هي مجموعة من أمراض العين التي يمكن أن تضر العصب البصري، وغالباً ما ترتبط بتراكم الضغط داخل العين. تُعرف غالباً بـ **"הلص الصامت للبصر"** لأنها تتطور ببطء شديد بدون أعراض مبكرة.
+    ### 👁️ ما هي الجلوكوما (المياه الزرقاء)؟
+    الجلوكوما هي مجموعة من أمراض العين التي يمكن أن تضر العصب البصري، وغالباً ما ترتبط بتراكم الضغط داخل العين. تُعرف غالباً بـ **"اللص الصامت للبصر"** لأنها تتطور ببطء شديد بدون أعراض مبكرة.
 
     ### 📌 أنواع الجلوكوما الرئيسية:
     1. **جلوكوما الزاوية المفتوحة (Open-Angle Glaucoma):** النوع الأكثر شيوعاً، تتدهور فيه زاوية التصريف ببطء بمرور الوقت.
@@ -262,4 +233,4 @@ elif st.session_state.page == 'awareness':
     * تؤثر الجلوكوما على ملايين البشر حول العالم وتعد السبب الرئيسي الثاني للعمى الدائم للمسنين.
     * الفحص المبكر يمنع فقدان البصر بنسبة تزيد عن **90%** إذا تم اكتشافه في مراحله الأولى.
     """)
-    st.success("✨ **OrosVision AI:** تقنية وطبية إنسانية مبنية خصيصاً للمساهمة في القضاء على العمى الصامت.")
+    st.success("✨ **OrosVision AI:** تقنية طبية إنسانية مبنية خصيصاً للمساهمة في القضاء على العمى الصامت.")
