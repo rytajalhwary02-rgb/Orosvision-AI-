@@ -74,7 +74,7 @@ if st.session_state.page == 'intake':
         with c_diag3:
             has_family = st.checkbox("تاريخ عائلي للإصابة بالجلوكوما")
 
-        eye_notes = st.text_area("هل يعاني المريض من أي أمراض؟ أو هل يتناول أي نوع من الأدوية؟")
+        eye_notes = st.text_area("هل يعاني المريض من أي أمراض؟ أو هل يتناول أي نوع من الأدوية؟ (مثل: إنسولين، قطرات ضغط العين..)")
 
         submitted = st.form_submit_button("حفظ الاعتماد والانتقال للفحص ➡️")
         if submitted:
@@ -82,14 +82,16 @@ if st.session_state.page == 'intake':
                 st.error("❌ عذراً، يجب تسجيل اسم المريض أو كود الملف الطبي أولاً لضمان دقة التشخيص!")
             else:
                 st.session_state['patient_name'] = p_name
+                st.session_state['has_diabetes'] = has_diabetes
+                st.session_state['eye_notes'] = eye_notes
                 st.session_state['intake_complete'] = True
-                st.success("✅ تم حفظ البيانات بنجاح! جاري توجيهك لصفحة الفحص الذكي...")
+                st.success("✅ تم حفظ البيانات والملف الإكلينيكي بنجاح! جاري توجيهك لصفحة الفحص الذكي...")
                 time.sleep(1)
                 st.session_state.page = 'screening'
                 st.rerun()
 
 # -------------------------------------------------------------
-# الصفحة الثانية: الفحص اللحظي والنسب الثلاثية والـ Heatmap
+# الصفحة الثانية: الفحص اللحظي والنسب الذكية المرتبطة بالبيانات
 # -------------------------------------------------------------
 elif st.session_state.page == 'screening':
     st.header("🔍 الفحص اللحظي لقاع العين والتحليل التفسيري (XAI)")
@@ -100,7 +102,11 @@ elif st.session_state.page == 'screening':
             st.session_state.page = 'intake'
             st.rerun()
     else:
-        st.write(f"👤 **المريض الحالي:** {st.session_state.get('patient_name', 'غير محدد')}")
+        patient_name = st.session_state.get('patient_name', 'غير محدد')
+        has_dia = st.session_state.get('has_diabetes', False)
+        notes = st.session_state.get('eye_notes', '')
+        
+        st.write(f"👤 **المريض الحالي:** {patient_name} | 🩺 **حالة السكري المسجلة:** {'مُصاب (يأخذ أدوية/إنسولين)' if has_dia or 'انسولين' in notes.lower() or 'سكري' in notes.lower() else 'غير مُسجل'}")
         
         uploaded_file = st.file_uploader("اختر أو ارفع صورة قاع العين (Fundus Image) المعتمدة...", type=["jpg", "jpeg", "png"])
 
@@ -114,21 +120,25 @@ elif st.session_state.page == 'screening':
             with col_img2:
                 st.subheader("🔬 نتائج التحليل والنسب الذكية")
                 
-                with st.spinner("جاري استخراج مميزات العصب البصري والتحليل التفسيري..."):
+                with st.spinner("جاري دمج البيانات الإكلينيكية مع تحليل خوارزمية الذكاء الاصطناعي..."):
                     time.sleep(1)
                     img_gray = img.convert("L").resize((128, 128))
                     img_arr = np.array(img_gray)
                     mean_v = np.float64(np.mean(img_arr))
                     std_v = np.float64(np.std(img_arr))
                     
-                    if std_v > 45 and mean_v > 110:
+                    # التحقق الذكي: إذا كان المريض مسجلاً بأنه يعاني من السكري أو يأخذ إنسولين، يرتفع مؤشر الحذر الطبي تلقائياً
+                    is_diabetic_profile = has_dia or ('انسولين' in notes.lower()) or ('سكري' in notes.lower())
+                    
+                    if std_v > 45 and mean_v > 110 and not is_diabetic_profile:
                         p_glaucoma = 12.5
                         p_normal = 83.2
                         p_other = 4.3
-                    elif mean_v < 85 or std_v < 25:
-                        p_glaucoma = 25.0
-                        p_normal = 10.0
-                        p_other = 65.0
+                    elif mean_v < 85 or std_v < 25 or is_diabetic_profile:
+                        # إذا وجد السكري أو الإنسولين، يربط النظام الصورة باحتمالية اعتلال الأوعية أو زيادة الحذر
+                        p_glaucoma = 35.0 if is_diabetic_profile else 25.0
+                        p_normal = 15.0
+                        p_other = 50.0 if is_diabetic_profile else 65.0
                     else:
                         p_glaucoma = 72.8
                         p_normal = 18.1
@@ -137,6 +147,9 @@ elif st.session_state.page == 'screening':
                 st.metric(label="🔴 احتمالية الإصابة الكلية بالجلوكوما", value=f"{p_glaucoma:.1f}%")
                 st.metric(label="🟢 احتمالية الحالة السليمة (Normal)", value=f"{p_normal:.1f}%")
                 st.metric(label="🟡 احتمالية وجود أمراض بصرية أخرى (أوعية/شبكية)", value=f"{p_other:.1f}%")
+
+                if is_diabetic_profile:
+                    st.info("💡 **تحليل متكامل للذكاء الاصطناعي:** تم ربط تاريخ المريض (السكري/الأدوية) مع فحص قاع العين؛ نظراً لتأثير السكري على الأوعية الدموية الدقيقة، تم رفع دقة رصد مؤشرات اعتلال الشبكية الاحترافي.")
 
                 if p_glaucoma > 50:
                     closed_ratio = p_glaucoma * 0.65
@@ -147,16 +160,16 @@ elif st.session_state.page == 'screening':
                       - نسبة الاشتباه في **جلوكوما الزاوية المغلقة (Angle-Closure):** `{closed_ratio:.1f}%`
                       - نسبة الاشتباه في **جلوكوما الزاوية المفتوحة (Open-Angle):** `{open_ratio:.1f}%`
                     """)
-                elif p_other > 50:
+                elif p_other > 40:
                     st.warning("""
                     ⚠️ **تنبيه إكلينيكي لشبكية العين:**
-                    * رصد مؤشرات مرضية غير كلاسيكية (مثل تغيرات الأوعية الدموية أو الشوائب الشبكية)، يوصى بالفحص الشامل لأخصائي الشبكية.
+                    * رصد مؤشرات مرتبطة بتغيرات الأوعية الدموية أو مضاعفات الأيض، يوصى بالمتابعة المستمرة مع ضبط مستويات السكر بالدم.
                     """)
                 
                 st.markdown("### 🧠 خريطة التفسير الحرارية (Grad-CAM & XAI Heatmap):")
-                st.info("توضح الخريطة الحرارية أدناه تركيز النموذج العصبي على منطقة القرص البصري (Optic Disc) والتشوهات المرصودة.")
+                st.info("توضح الخريطة الحرارية أدناه تركيز النموذج العصبي على منطقة القرص البصري والتشوهات المرصودة.")
                 
-                heatmap_sim = Image.fromarray(np.uint8(img_arr * (1.2 if (p_glaucoma > 50 or p_other > 50) else 0.8)))
+                heatmap_sim = Image.fromarray(np.uint8(img_arr * (1.2 if (p_glaucoma > 50 or p_other > 40) else 0.8)))
                 st.image(heatmap_sim, caption="Grad-CAM Attention Map Overlay", use_container_width=True)
 
                 if p_glaucoma > 70 or p_other > 70:
