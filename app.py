@@ -6,8 +6,8 @@ import os
 
 # إعدادات الواجهة وخصائص الصفحة
 st.set_page_config(
-    page_title="OrosVision AI - Translational Medical Platform",
-    page_icon="👁️",
+    page_title="OrosVision AI",
+    page_icon="🔆",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
@@ -160,16 +160,16 @@ st.markdown("""
 nav_col1, nav_col2, nav_col3, nav_col4 = st.columns(4)
 
 with nav_col1:
-    if st.button("١ـ بيانَات المريض 📝\nPatient Intake", use_container_width=True):
+    if st.button("1 ـ \nPatient Intake", use_container_width=True):
         st.session_state.page = 'intake'
 with nav_col2:
-    if st.button("٢ـ الفحص الذّكي (AI) 🔍\nSmart Screening", use_container_width=True):
+    if st.button("2 ـ \nSmart Screening", use_container_width=True):
         st.session_state.page = 'screening'
 with nav_col3:
-    if st.button("٣ـ المُتابعة الزمنِية 📈\nLongitudinal", use_container_width=True):
+    if st.button("3 ـ nLongitudinal", use_container_width=True):
         st.session_state.page = 'temporal'
 with nav_col4:
-    if st.button("٤ـ التوعِية الطبية 🔅\nAwareness", use_container_width=True):
+    if st.button("4 ـ \nAwareness", use_container_width=True):
         st.session_state.page = 'awareness'
 
 st.markdown("<br>", unsafe_allow_html=True)
@@ -180,7 +180,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 if st.session_state.page == 'intake':
     st.markdown("""
         <div class="med-card">
-            <h3 style="margin-top:0; color: #1e3a8a;">📝 التسجيل الإكلينيكي للمريض | Patient Clinical Intake</h3>
+            <h3 style="margin-top:0; color: #1e3a8a;">Patient Clinical Intake</h3>
             <p style="color: #64748b; margin-bottom: 0;">يُرجى استيفاء كافة بيانات المريض بدقة لضمان تفعيل محرك الفحص الذكي وربط التاريخ المرضي بالتحليل التفسيري (XAI).</p>
         </div>
     """, unsafe_allow_html=True)
@@ -194,18 +194,18 @@ if st.session_state.page == 'intake':
             p_gender = st.selectbox("الجنس (Gender)", ["ذكر (Male)", "أنثى (Female)"])
             p_phone = st.text_input("رقم الهاتف للتواصل الطارئ (Phone Number)")
 
-        st.markdown("<h4 style='color: #1e3a8a; margin-top: 15px;'>🧬 التاريخ المرضي وعوامل الخطورة (Clinical History & Risk Profile):</h4>", unsafe_allow_html=True)
+        st.markdown("<h4 style='color: #1e3a8a; margin-top: 15px;'> (Clinical History & Risk Profile):</h4>", unsafe_allow_html=True)
         c_diag1, c_diag2, c_diag3 = st.columns(3)
         with c_diag1:
-            has_diabetes = st.checkbox("مرض السكري (Diabetes Mellitus)")
+            has_diabetes = st.checkbox("(Diabetes Mellitus)")
         with c_diag2:
-            has_hypertension = st.checkbox("ارتفاع ضغط الدم (Hypertension)")
+            has_hypertension = st.checkbox("(Hypertension)")
         with c_diag3:
-            has_family = st.checkbox("تاريخ عائلي للجلوكوما (Family History)")
+            has_family = st.checkbox("(Family History)")
 
-        eye_notes = st.text_area("الأدوية الحالية والملاحظات الطبية (مثل: إنسولين، قطرات ضغط العين..)\nClinical notes / Current Medications:")
+        eye_notes = st.text_area("\nClinical notes / Current Medications:")
 
-        submitted = st.form_submit_button("حفظ الاعتماد والانتقال للفحص ➡️ Save & Proceed to Screening")
+        submitted = st.form_submit_button("Save & Proceed to Screening")
         if submitted:
             if not p_name.strip():
                 st.error("❌ عذراً، يجب تسجيل اسم المريض أو كود الملف الطبي أولاً!")
@@ -227,7 +227,7 @@ elif st.session_state.page == 'screening':
 
     if not st.session_state.get('intake_complete', False):
         st.warning("⚠️ تنبيه أمني: يجب إدخال بيانات المريض أولاً في صفحة التسجيل الإكلينيكي!")
-        if st.button("الانتقال لصفحة التسجيل ⬅️ Go to Intake"):
+        if st.button("الانتقال لصفحة التسجيل Go to Intake"):
             st.session_state.page = 'intake'
             st.rerun()
     else:
@@ -240,7 +240,7 @@ elif st.session_state.page == 'screening':
         st.markdown(f"""
             <div class="med-card" style="padding: 15px 25px;">
                 <span>👤 <b>المريض:</b> {patient_name}</span> &nbsp;|&nbsp; 
-                <span>🩺 <b>حالة السكري والأدوية:</b> {'مُصاب (إنسولين / أدوية سكر)' if is_diabetic_profile else 'غير مُسجل'}</span>
+                <span> <b>حالة السكري والأدوية:</b> {'مُصاب (إنسولين / أدوية سكر)' if is_diabetic_profile else 'غير مُسجل'}</span>
             </div>
         """, unsafe_allow_html=True)
         
@@ -250,14 +250,14 @@ elif st.session_state.page == 'screening':
             col_img1, col_img2 = st.columns(2)
             with col_img1:
                 st.markdown("<div class='med-card'>", unsafe_allow_html=True)
-                st.subheader("📷 صورة قاع العين المُرفقة")
+                st.subheader("صورة قاع العين المُرفقة")
                 img = Image.open(uploaded_file)
                 st.image(img, use_container_width=True)
                 st.markdown("</div>", unsafe_allow_html=True)
                 
             with col_img2:
                 st.markdown("<div class='med-card'>", unsafe_allow_html=True)
-                st.subheader("🔬 نتائج التحليل والنسب الذكية (AI Metrics)")
+                st.subheader(" نتائج التحليل والنسب الذكية (AI Metrics)")
                 
                 with st.spinner("جاري دمج البيانات الإكلينيكية مع تحليل الخوارزمية..."):
                     time.sleep(1)
@@ -283,14 +283,14 @@ elif st.session_state.page == 'screening':
                 st.metric(label="🟡 احتمالية أمراض شبكية أخرى (Retinal Risk)", value=f"{p_other:.1f}%")
 
                 if is_diabetic_profile:
-                    st.info("💡 **تحليل متكامل (XAI Integration):** تم ربط تاريخ السكري بالتحليل لرفع حساسيه رصد التغيرات الوعائية.")
+                    st.info("**تحليل متكامل (XAI Integration):** تم ربط تاريخ السكري بالتحليل لرفع حساسيه رصد التغيرات الوعائية.")
 
                 if p_glaucoma < 20 and p_other < 40:
-                    st.success("✨ **نتيجة اطمئنان:** المؤشرات الإكلينيكية ضمن الحدود السليمة.")
+                    st.success("**نتيجة اطمئنان:** المؤشرات الإكلينيكية ضمن الحدود السليمة.")
                 st.markdown("</div>", unsafe_allow_html=True)
                 
             st.markdown("<div class='med-card'>", unsafe_allow_html=True)
-            st.markdown("### 🧠 خريطة التفسير الحرارية (Grad-CAM & XAI Heatmap):")
+            st.markdown("### خريطة التفسير الحرارية (Grad-CAM & XAI Heatmap):")
             st.info("توضح الخريطة الحرارية مناطق تركيز النموذج العصبي على القرص البصري (Optic Disc).")
             heatmap_sim = Image.fromarray(np.uint8(img_arr * 0.9))
             st.image(heatmap_sim, caption="Grad-CAM Attention Map Overlay", use_container_width=True)
@@ -300,12 +300,12 @@ elif st.session_state.page == 'screening':
 # الصفحة الثالثة: المتابعة الزمنية
 # -------------------------------------------------------------
 elif st.session_state.page == 'temporal':
-    st.markdown("<h3 style='color: #1e3a8a;'>📈 لوحة المتابعة الزمنية لتطور العصب البصري</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color: #1e3a8a;'> لوحة المتابعة الزمنية لتطور العصب البصري</h3>", unsafe_allow_html=True)
 
     col_old, col_new = st.columns(2)
     with col_old:
         st.markdown("<div class='med-card'>", unsafe_allow_html=True)
-        st.markdown("### 📁 الفحص الأرشيفي القديم")
+        st.markdown("### الفحص الأرشيفي القديم")
         old_file = st.file_uploader("اختر صورة الفحص القديم", type=["jpg", "png", "jpeg"], key="old_img")
         if old_file:
             st.image(Image.open(old_file), caption="Baseline Fundus Image", use_container_width=True)
@@ -313,7 +313,7 @@ elif st.session_state.page == 'temporal':
 
     with col_new:
         st.markdown("<div class='med-card'>", unsafe_allow_html=True)
-        st.markdown("### 📁 الفحص الحديث (الزيارة الحالية)")
+        st.markdown("### الفحص الحديث (الزيارة الحالية)")
         new_file = st.file_uploader("اختر صورة الفحص الحديث", type=["jpg", "png", "jpeg"], key="new_img")
         if new_file:
             st.image(Image.open(new_file), caption="Follow-up Fundus Image", use_container_width=True)
@@ -321,7 +321,7 @@ elif st.session_state.page == 'temporal':
 
     if old_file and new_file:
         st.markdown("<div class='med-card'>", unsafe_allow_html=True)
-        st.subheader("📊 تحليل الفارق الزمني الإكلينيكي (Clinical Progression):")
+        st.subheader("تحليل الفارق الزمني الإكلينيكي (Clinical Progression):")
         with st.spinner("جاري حساب معدل التطور ومقارنة الصور..."):
             time.sleep(1)
             arr_o = np.array(Image.open(old_file).convert("L").resize((64, 64)))
@@ -330,7 +330,7 @@ elif st.session_state.page == 'temporal':
             prog_rate = float(diff_val * 0.25)
 
         st.metric(label="معدل التغير في تقعر العصب البصري (Cup-to-Disc Ratio Change)", value=f"{prog_rate:+.1f}%")
-        st.success("🤍 **استقرار الحالة:** لا يوجد تدهور ملحوظ في الألياف العصبية بين الفحصين.")
+        st.success(" **استقرار الحالة:** لا يوجد تدهور ملحوظ في الألياف العصبية بين الفحصين.")
         st.markdown("</div>", unsafe_allow_html=True)
 
 # -------------------------------------------------------------
@@ -339,7 +339,7 @@ elif st.session_state.page == 'temporal':
 elif st.session_state.page == 'awareness':
     st.markdown("""
         <div class="med-card">
-            <h3 style="color: #1e3a8a; margin-top:0;">📚 التوعية الطبية والدليل الإرشادي للجلوكوما</h3>
+            <h3 style="color: #1e3a8a; margin-top:0;"> التوعية الطبية والدليل الإرشادي للجلوكوما</h3>
             <p>الجلوكوما هي المسبب الرئيسي الثاني للعمى غير المرتجع عالمياً (WHO). الفحص المبكر بالذكاء الاصطناعي يرفع نسبة الوقاية وتجنب فقدان البصر إلى أكثر من <b>90%</b>.</p>
         </div>
     """, unsafe_allow_html=True)
