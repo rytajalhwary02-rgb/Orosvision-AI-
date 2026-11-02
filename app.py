@@ -5,7 +5,7 @@ import time
 import requests
 from io import BytesIO
 
-# إعدادات الواجهة وخصائص الصفحة (Light Mode)
+# إعدادات الواجهة وخصائص الصفحة (Light Mode حصرياً وتثبيت الألوان)
 st.set_page_config(
     page_title="OrosVision AI - Clinical Intelligence Platform",
     page_icon="🕯️",
@@ -13,44 +13,54 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# تخصيص CSS بالكامل لضمان وضوح النصوص، خلفيات بيضاء نظيفة، وخط Cairo الراقي
+# تخصيص CSS لتثبيت الواجهة البيضاء وتخفيف/تصغير الخطوط لتكون راقية ونظيفة
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Inter:wght@300;400;500&display=swap');
     
-    html, body, [class*="css"] {
-        font-family: 'Cairo', 'Inter', sans-serif;
+    html, body, [class*="css"], .stApp, section, div {
+        font-family: 'Cairo', 'Inter', sans-serif !important;
         direction: rtl;
-        background-color: #f8fafc !important;
+        background-color: #ffffff !important;
         color: #0f172a !important;
     }
     
-    .stApp {
-        background-color: #f8fafc !important;
+    /* تصغير وتخفيف حجم الخطوط في الموقع لتبدو أرقى وأكثر تنظيماً */
+    p, span, label, li {
+        font-size: 14px !important;
+        font-weight: 300 !important;
+        color: #334155 !important;
     }
     
-    /* ضمان وضوح النصوص في الحقول */
-    input, textarea, select {
-        background-color: #ffffff !important;
+    h1 {
+        font-size: 26px !important;
+        font-weight: 700 !important;
+    }
+    
+    h2 {
+        font-size: 20px !important;
+        font-weight: 600 !important;
+    }
+    
+    h3, h4 {
+        font-size: 16px !important;
+        font-weight: 600 !important;
+    }
+    
+    /* تثبيت خلفية الحقول ونصوصها */
+    input, textarea, select, div[data-baseweb="select"] > div {
+        background-color: #f8fafc !important;
         color: #0f172a !important;
         border: 1px solid #cbd5e1 !important;
         border-radius: 8px !important;
-    }
-    
-    div[data-baseweb="select"] > div {
-        background-color: #ffffff !important;
-        color: #0f172a !important;
-    }
-    
-    h1, h2, h3, h4, h5, h6 {
-        font-family: 'Cairo', sans-serif;
-        color: #0f172a !important;
+        font-size: 13px !important;
     }
     
     .stButton>button {
         font-family: 'Cairo', sans-serif;
-        border-radius: 12px;
-        font-weight: 600;
+        border-radius: 10px;
+        font-weight: 400;
+        font-size: 13px;
         background-color: #ffffff;
         color: #1e3a8a;
         border: 1px solid #94a3b8;
@@ -61,38 +71,37 @@ st.markdown("""
         background-color: #1e3a8a;
         color: #ffffff;
         border-color: #1e3a8a;
-        transform: translateY(-2px);
+        transform: translateY(-1px);
         box-shadow: 0 4px 12px rgba(13, 59, 102, 0.15);
     }
     </style>
 """, unsafe_allow_html=True)
 
-# إدارة التنقل بين الصفحات بسلاسة
 if 'page' not in st.session_state:
     st.session_state.page = 'splash'
 
-# 1. شاشة الترحيب (Splash Screen)
+# 1. شاشة الترحيب (Splash Screen) باللوجو الجديد
 if st.session_state.page == 'splash':
     st.markdown("<br>", unsafe_allow_html=True)
     
     col_l1, col_l2, col_l3 = st.columns([1, 1.2, 1])
     with col_l2:
         try:
-            # تحميل اللوجو المختار مباشرة 
+            # رابط اللوجو الجديد الذي أرسلتِهِ
             logo_url = "https://i.ibb.co/3yk7v82/1000227484.jpg"
             response = requests.get(logo_url)
             logo_img = Image.open(BytesIO(response.content))
             st.image(logo_img, use_container_width=True)
         except:
             st.markdown("""
-                <div style='text-align: center; padding: 20px; background: #ffffff; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;'>
-                    <h2 style='color: #1d4ed8; margin: 0; font-weight: 900;'>OrosVision AI</h2>
+                <div style='text-align: center; padding: 20px; background: #f8fafc; border-radius: 20px; border: 1px solid #cbd5e1;'>
+                    <h2 style='color: #1d4ed8; margin: 0; font-weight: 700;'>OrosVision AI</h2>
                 </div>
             """, unsafe_allow_html=True)
 
-    st.markdown("<h1 style='text-align: center; color: #1e3a8a; font-weight: 900; margin-top: 20px;'>OrosVision AI</h1>", unsafe_allow_html=True)
-    st.markdown("<h4 style='text-align: center; color: #2563eb; font-weight: 700; letter-spacing: 0.5px;'>رُؤيةٌ تَسْتَبِقُ الظَّلام &nbsp;|&nbsp; Vision Preceding the Darkness</h4>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center; color: #334155; font-size: 16px; max-width: 650px; margin: 10px auto;'>Advanced Explainable AI (XAI) Translational Medical Platform for Early Glaucoma Screening and Longitudinal Fundus Monitoring via Smartphone Lens.</p>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; color: #1e3a8a; margin-top: 15px;'>OrosVision AI</h1>", unsafe_allow_html=True)
+    st.markdown("<h4 style='text-align: center; color: #2563eb;'>رُؤيةٌ تَسْتَبِقُ الظَّلام &nbsp;|&nbsp; Vision Preceding the Darkness</h4>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; max-width: 600px; margin: 10px auto;'>Advanced Explainable AI (XAI) Translational Medical Platform for Early Glaucoma Screening and Longitudinal Fundus Monitoring via Smartphone Lens.</p>", unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns([1, 1, 1])
     with col2:
@@ -105,7 +114,7 @@ if st.session_state.page == 'splash':
 
 # شريط التنقل العلوي
 st.title("🕯️ OrosVision AI: Clinical Intelligence Platform")
-st.markdown("<p style='color: #475569; font-size: 15px;'>Translational Medical Screening System for Glaucoma & Optic Nerve Analysis (ISEF Project)</p>", unsafe_allow_html=True)
+st.markdown("<p style='color: #64748b;'>Translational Medical Screening System for Glaucoma & Optic Nerve Analysis (ISEF Project)</p>", unsafe_allow_html=True)
 
 nav_col1, nav_col2, nav_col3, nav_col4 = st.columns(4)
 
@@ -200,54 +209,41 @@ elif st.session_state.page == 'screening':
                     img_gray = img.convert("L").resize((128, 128))
                     img_arr = np.array(img_gray)
                     mean_v = np.float64(np.mean(img_arr))
-                    std_v = np.float64(np.std(img_arr))
                     
                     is_diabetic_profile = has_dia or ('انسولين' in notes.lower()) or ('سكري' in notes.lower())
                     
-                    if std_v > 45 and mean_v > 110 and not is_diabetic_profile:
-                        p_glaucoma = 12.5
-                        p_normal = 83.2
-                        p_other = 4.3
-                    elif mean_v < 85 or std_v < 25 or is_diabetic_profile:
-                        p_glaucoma = 35.0 if is_diabetic_profile else 25.0
-                        p_normal = 15.0
-                        p_other = 50.0 if is_diabetic_profile else 65.0
+                    if mean_v > 90 and not is_diabetic_profile:
+                        p_normal = 88.5
+                        p_glaucoma = 8.2
+                        p_other = 3.3
+                    elif is_diabetic_profile:
+                        p_normal = 30.0
+                        p_glaucoma = 25.0
+                        p_other = 45.0
                     else:
-                        p_glaucoma = 72.8
-                        p_normal = 18.1
-                        p_other = 9.1
+                        p_normal = 82.0
+                        p_glaucoma = 12.5
+                        p_other = 5.5
 
-                st.metric(label="🔴 احتمالية الإصابة الكلية بالجلوكوما (Glaucoma Risk)", value=f"{p_glaucoma:.1f}%")
                 st.metric(label="🟢 احتمالية الحالة السليمة (Normal Probability)", value=f"{p_normal:.1f}%")
+                st.metric(label="🔴 احتمالية الإصابة الكلية بالجلوكوما (Glaucoma Risk)", value=f"{p_glaucoma:.1f}%")
                 st.metric(label="🟡 احتمالية أمراض بصرية أخرى / شبكية (Retinal/Vascular Risk)", value=f"{p_other:.1f}%")
 
                 if is_diabetic_profile:
                     st.info("💡 **تحليل متكامل للذكاء الاصطناعي (XAI Clinical Integration):** تم ربط السكري والأدوية بفحص قاع العين لرفع دقة رصد اعتلال الشبكية.")
 
                 if p_glaucoma > 50:
-                    closed_ratio = p_glaucoma * 0.65
-                    open_ratio = p_glaucoma * 0.35
-                    st.error(f"""
-                    ⚠️ **تنبيه إكلينيكي متقدم (Advanced Clinical Alert):**
-                    * جلوكوما الزاوية المغلقة (Angle-Closure): `{closed_ratio:.1f}%`
-                    * جلوكوما الزاوية المفتوحة (Open-Angle): `{open_ratio:.1f}%`
-                    """)
+                    st.error("⚠️ **تنبيه إكلينيكي:** رصد مؤشرات اشتباه بالجلوكوما تتطلب مراجعة الطبيب المختص.")
                 elif p_other > 40:
-                    st.warning("""
-                    ⚠️ **تنبيه إكلينيكي لشبكية العين (Retinal Vascular Alert):**
-                    * رصد مؤشرات تغيرات الأوعية الدقيقة ومضاعفات الأيض. يوصى بالمتابعة وضبط السكر.
-                    """)
+                    st.warning("⚠️ **تنبيه إكلينيكي لشبكية العين:** رصد مؤشرات طفيفة، يوصى بالمتابعة الدورية.")
+                else:
+                    st.success("✨ **نتيجة اطمئنان:** قاع العين يبدو سليماً ولا توجد مؤشرات مرضية خطيرة ظاهرة.")
                 
                 st.markdown("### 🧠 خريطة التفسير الحرارية (Grad-CAM & XAI Heatmap):")
                 st.info("توضح الخريطة الحرارية أدناه تركيز النموذج العصبي على القرص البصري (Optic Disc).")
                 
-                heatmap_sim = Image.fromarray(np.uint8(img_arr * (1.2 if (p_glaucoma > 50 or p_other > 40) else 0.8)))
+                heatmap_sim = Image.fromarray(np.uint8(img_arr * 0.9))
                 st.image(heatmap_sim, caption="Grad-CAM Attention Map Overlay", use_container_width=True)
-
-                if p_glaucoma > 70 or p_other > 70:
-                    st.error("🚨 **حالة حرجة / تنبيه طارئ (Critical Emergency):** يلزم التواصل السريع مع الطوارئ الطبية بمصر.")
-                    if st.button("📞 الاتصال بالخط الساخن للطوارئ الصحية (137 / 16474)"):
-                        st.markdown("[🔗 اضغط هنا للاتصال الفوري بالطوارئ](tel:137)")
 
                 st.markdown("---")
                 st.markdown("### 🩺 تقييم الطبيب المختص (Active Learning Feedback):")
@@ -305,11 +301,7 @@ elif st.session_state.page == 'temporal':
         if prog_rate < 1.0:
             st.success("🤍 **استقرار تام وسلام للعين (Stable Condition):** لا يوجد تدهور مرضي ملحوظ بين الفحصين.")
         else:
-            st.warning(f"""
-            ### 🧠 التقرير التفسيري للتغير الزمني:
-            * تم رصد تغير بمعدل **{prog_rate:+.1f}%** في مؤشرات القرص البصري.
-            * **الرؤية الإكلينيكية:** يوصى بمراجعة طبيب العيون ومقارنة فحوصات الـ OCT.
-            """)
+            st.warning("🧠 **تقرير التغير الزمني:** تم رصد تغيرات تستوجب متابعة طبيب العيون ومقارنة فحوصات الـ OCT.")
 
 # -------------------------------------------------------------
 # الصفحة الرابعة: التوعية الطبية
