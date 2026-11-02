@@ -2,6 +2,8 @@ import streamlit as st
 import numpy as np
 from PIL import Image
 import time
+import requests
+from io import BytesIO
 
 # إعدادات الواجهة وخصائص الصفحة (Light Mode)
 st.set_page_config(
@@ -11,7 +13,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# حقق خطوط عربية وأجنبية راقية (Cairo / Inter) وتطبيق تصميم Light Mode فائق الجمال
+# تخصيص CSS بالكامل لضمان وضوح النصوص، خلفيات بيضاء نظيفة، وخط Cairo الراقي
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
@@ -19,58 +21,78 @@ st.markdown("""
     html, body, [class*="css"] {
         font-family: 'Cairo', 'Inter', sans-serif;
         direction: rtl;
-        background-color: #f8fafc;
-        color: #1e293b;
+        background-color: #f8fafc !important;
+        color: #0f172a !important;
     }
     
     .stApp {
-        background-color: #f8fafc;
+        background-color: #f8fafc !important;
+    }
+    
+    /* ضمان وضوح النصوص في الحقول */
+    input, textarea, select {
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+        border: 1px solid #cbd5e1 !important;
+        border-radius: 8px !important;
+    }
+    
+    div[data-baseweb="select"] > div {
+        background-color: #ffffff !important;
+        color: #0f172a !important;
     }
     
     h1, h2, h3, h4, h5, h6 {
         font-family: 'Cairo', sans-serif;
-        color: #0f172a;
+        color: #0f172a !important;
     }
     
     .stButton>button {
         font-family: 'Cairo', sans-serif;
         border-radius: 12px;
         font-weight: 600;
+        background-color: #ffffff;
+        color: #1e3a8a;
+        border: 1px solid #94a3b8;
         transition: all 0.3s ease;
     }
     
     .stButton>button:hover {
+        background-color: #1e3a8a;
+        color: #ffffff;
+        border-color: #1e3a8a;
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(13, 59, 102, 0.15);
     }
     </style>
 """, unsafe_allow_html=True)
 
-# إدارة التنقل بين الصفحات بسلاسة عبر واجهة المستخدم
+# إدارة التنقل بين الصفحات بسلاسة
 if 'page' not in st.session_state:
     st.session_state.page = 'splash'
 
-# 1. شاشة الترحيب والـ Brand Intro (Light Mode بتصميم راقي وفخم)
+# 1. شاشة الترحيب (Splash Screen)
 if st.session_state.page == 'splash':
-    st.markdown("<br><br>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
     
-    # محاولة عرض اللوجو الخاص بالمشروع (تأكدي من رفع صورة اللوجو باسم logo.png في المستودع)
     col_l1, col_l2, col_l3 = st.columns([1, 1.2, 1])
     with col_l2:
         try:
-            logo_img = Image.open("logo.png")
+            # تحميل اللوجو المختار مباشرة 
+            logo_url = "https://i.ibb.co/3yk7v82/1000227484.jpg"
+            response = requests.get(logo_url)
+            logo_img = Image.open(BytesIO(response.content))
             st.image(logo_img, use_container_width=True)
         except:
             st.markdown("""
-                <div style='text-align: center; padding: 25px; background: #ffffff; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;'>
-                    <h2 style='color: #2563eb; margin: 0; font-weight: 900;'>OrosVision AI Studio</h2>
-                    <p style='color: #64748b; font-size: 14px;'>Translational Medical AI Platform</p>
+                <div style='text-align: center; padding: 20px; background: #ffffff; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;'>
+                    <h2 style='color: #1d4ed8; margin: 0; font-weight: 900;'>OrosVision AI</h2>
                 </div>
             """, unsafe_allow_html=True)
 
-    st.markdown("<h1 style='text-align: center; color: #1e3a8a; font-weight: 900; margin-top: 25px;'>OrosVision AI</h1>", unsafe_allow_html=True)
-    st.markdown("<h4 style='text-align: center; color: #0284c7; font-weight: 700; letter-spacing: 0.5px;'>رُؤيةٌ تَسْتَبِقُ الظَّلام &nbsp;|&nbsp; Vision Preceding the Darkness</h4>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center; color: #475569; font-size: 16px; max-width: 650px; margin: 10px auto;'>Advanced Explainable AI (XAI) Platform for Early Glaucoma Screening and Longitudinal Fundus Monitoring via Smartphone Lens.</p>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; color: #1e3a8a; font-weight: 900; margin-top: 20px;'>OrosVision AI</h1>", unsafe_allow_html=True)
+    st.markdown("<h4 style='text-align: center; color: #2563eb; font-weight: 700; letter-spacing: 0.5px;'>رُؤيةٌ تَسْتَبِقُ الظَّلام &nbsp;|&nbsp; Vision Preceding the Darkness</h4>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; color: #334155; font-size: 16px; max-width: 650px; margin: 10px auto;'>Advanced Explainable AI (XAI) Translational Medical Platform for Early Glaucoma Screening and Longitudinal Fundus Monitoring via Smartphone Lens.</p>", unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns([1, 1, 1])
     with col2:
@@ -81,9 +103,9 @@ if st.session_state.page == 'splash':
             
     st.stop()
 
-# شريط تنقل أفقي احترافي وراقي في الأعلى
+# شريط التنقل العلوي
 st.title("🕯️ OrosVision AI: Clinical Intelligence Platform")
-st.markdown("<p style='color: #64748b; font-size: 15px;'>Translational Medical Screening System for Glaucoma & Optic Nerve Analysis (ISEF Project)</p>", unsafe_allow_html=True)
+st.markdown("<p style='color: #475569; font-size: 15px;'>Translational Medical Screening System for Glaucoma & Optic Nerve Analysis (ISEF Project)</p>", unsafe_allow_html=True)
 
 nav_col1, nav_col2, nav_col3, nav_col4 = st.columns(4)
 
@@ -103,11 +125,11 @@ with nav_col4:
 st.markdown("---")
 
 # -------------------------------------------------------------
-# الصفحة الأولى: إدخال البيانات الإكلينيكية الإلزامية
+# الصفحة الأولى: إدخال البيانات الإكلينيكية
 # -------------------------------------------------------------
 if st.session_state.page == 'intake':
     st.header("📝 التسجيل الإكلينيكي الإلزامي للمريض | Patient Clinical Intake")
-    st.info("⚠️ تنبيه نظام التشخيص: يُرجى استيفاء كافة بيانات المريض بدقة لضمان تفعيل محرك الفحص الذكي وعدم رفض العينة.")
+    st.info("⚠️ تنبيه نظام التشخيص: يُرجى استيفاء كافة بيانات المريض بدقة لضمان تفعيل محرك الفحص الذكي.")
 
     with st.form("patient_intake_form"):
         col1, col2 = st.columns(2)
@@ -144,7 +166,7 @@ if st.session_state.page == 'intake':
                 st.rerun()
 
 # -------------------------------------------------------------
-# الصفحة الثانية: الفحص اللحظي والنسب الذكية المرتبطة بالبيانات
+# الصفحة الثانية: الفحص اللحظي
 # -------------------------------------------------------------
 elif st.session_state.page == 'screening':
     st.header("🔍 الفحص اللحظي لقاع العين والتحليل التفسيري (XAI Fundus Screening)")
@@ -200,16 +222,15 @@ elif st.session_state.page == 'screening':
                 st.metric(label="🟡 احتمالية أمراض بصرية أخرى / شبكية (Retinal/Vascular Risk)", value=f"{p_other:.1f}%")
 
                 if is_diabetic_profile:
-                    st.info("💡 **تحليل متكامل للذكاء الاصطناعي (XAI Clinical Integration):** تم ربط السكري والأدوية بفحص قاع العين؛ لرفع دقة رصد مؤشرات اعتلال الشبكية المرتبط بالسكري.")
+                    st.info("💡 **تحليل متكامل للذكاء الاصطناعي (XAI Clinical Integration):** تم ربط السكري والأدوية بفحص قاع العين لرفع دقة رصد اعتلال الشبكية.")
 
                 if p_glaucoma > 50:
                     closed_ratio = p_glaucoma * 0.65
                     open_ratio = p_glaucoma * 0.35
                     st.error(f"""
                     ⚠️ **تنبيه إكلينيكي متقدم (Advanced Clinical Alert):**
-                    * تفصيل نوع الجلوكوما المُقدر بالذكاء الاصطناعي:
-                      - جلوكوما الزاوية المغلقة (Angle-Closure): `{closed_ratio:.1f}%`
-                      - جلوكوما الزاوية المفتوحة (Open-Angle): `{open_ratio:.1f}%`
+                    * جلوكوما الزاوية المغلقة (Angle-Closure): `{closed_ratio:.1f}%`
+                    * جلوكوما الزاوية المفتوحة (Open-Angle): `{open_ratio:.1f}%`
                     """)
                 elif p_other > 40:
                     st.warning("""
@@ -230,7 +251,7 @@ elif st.session_state.page == 'screening':
 
                 st.markdown("---")
                 st.markdown("### 🩺 تقييم الطبيب المختص (Active Learning Feedback):")
-                st.write("هل توافق على نتيجة التشخيص الصادرة عن النظام الذكي؟ (Do you agree with the AI diagnosis?)")
+                st.write("هل توافق على نتيجة التشخيص الصادرة عن النظام الذكي؟")
                 
                 feedback_col1, feedback_col2 = st.columns(2)
                 with feedback_col1:
@@ -247,7 +268,7 @@ elif st.session_state.page == 'screening':
                         st.session_state['show_correction'] = False
 
 # -------------------------------------------------------------
-# الصفحة الثالثة: المتابعة الزمنية الاختيارية
+# الصفحة الثالثة: المتابعة الزمنية
 # -------------------------------------------------------------
 elif st.session_state.page == 'temporal':
     st.header("📈 لوحة المتابعة الزمنية الاختيارية (Longitudinal Tracking Dashboard)")
@@ -291,7 +312,7 @@ elif st.session_state.page == 'temporal':
             """)
 
 # -------------------------------------------------------------
-# الصفحة الرابعة: التوعية والثقافة الطبية عن الجلوكوما
+# الصفحة الرابعة: التوعية الطبية
 # -------------------------------------------------------------
 elif st.session_state.page == 'awareness':
     st.header("📚 دليل التوعية الصحية وإحصائيات الجلوكوما (Medical Awareness & Global Statistics)")
