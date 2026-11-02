@@ -2,10 +2,9 @@ import streamlit as st
 import numpy as np
 from PIL import Image
 import time
-import requests
-from io import BytesIO
+import os
 
-# إعدادات الواجهة وخصائص الصفحة (Light Mode حصرياً وتثبيت الألوان)
+# إعدادات الواجهة وخصائص الصفحة
 st.set_page_config(
     page_title="OrosVision AI - Clinical Intelligence Platform",
     page_icon="🕯️",
@@ -13,66 +12,71 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# تخصيص CSS لتثبيت الواجهة البيضاء وتخفيف/تصغير الخطوط لتكون راقية ونظيفة
+# تخصيص CSS متطور: ألوان متناسقة، خطوط واضحة وغير رفيعة، وخلفية أنيقة
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Inter:wght@300;400;500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;500;600&display=swap');
     
-    html, body, [class*="css"], .stApp, section, div {
+    html, body, [class*="css"], .stApp {
         font-family: 'Cairo', 'Inter', sans-serif !important;
         direction: rtl;
-        background-color: #ffffff !important;
+        background-color: #f4f6f9 !important;
         color: #0f172a !important;
     }
     
-    /* تصغير وتخفيف حجم الخطوط في الموقع لتبدو أرقى وأكثر تنظيماً */
-    p, span, label, li {
+    /* تنسيق الحقول بوضوح تام */
+    input, textarea, select, div[data-baseweb="select"] > div {
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+        border: 1px solid #cbd5e1 !important;
+        border-radius: 10px !important;
         font-size: 14px !important;
-        font-weight: 300 !important;
+        font-weight: 500 !important;
+    }
+    
+    /* أحجام وسُمك الخطوط الواضحة والمنسقة */
+    p, span, label, li {
+        font-size: 15px !important;
+        font-weight: 500 !important;
         color: #334155 !important;
     }
     
     h1 {
-        font-size: 26px !important;
-        font-weight: 700 !important;
+        font-size: 32px !important;
+        font-weight: 900 !important;
+        color: #1e3a8a !important;
     }
     
     h2 {
-        font-size: 20px !important;
-        font-weight: 600 !important;
+        font-size: 22px !important;
+        font-weight: 700 !important;
+        color: #1e3a8a !important;
     }
     
     h3, h4 {
-        font-size: 16px !important;
-        font-weight: 600 !important;
+        font-size: 18px !important;
+        font-weight: 700 !important;
+        color: #1e40af !important;
     }
     
-    /* تثبيت خلفية الحقول ونصوصها */
-    input, textarea, select, div[data-baseweb="select"] > div {
-        background-color: #f8fafc !important;
-        color: #0f172a !important;
-        border: 1px solid #cbd5e1 !important;
-        border-radius: 8px !important;
-        font-size: 13px !important;
-    }
-    
+    /* تصميم الأزرار الاحترافية */
     .stButton>button {
         font-family: 'Cairo', sans-serif;
-        border-radius: 10px;
-        font-weight: 400;
-        font-size: 13px;
-        background-color: #ffffff;
-        color: #1e3a8a;
-        border: 1px solid #94a3b8;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 15px;
+        background-color: #1e3a8a;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
         transition: all 0.3s ease;
     }
     
     .stButton>button:hover {
-        background-color: #1e3a8a;
+        background-color: #1d4ed8;
         color: #ffffff;
-        border-color: #1e3a8a;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(13, 59, 102, 0.15);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(30, 58, 138, 0.25);
     }
     </style>
 """, unsafe_allow_html=True)
@@ -80,32 +84,32 @@ st.markdown("""
 if 'page' not in st.session_state:
     st.session_state.page = 'splash'
 
-# 1. شاشة الترحيب (Splash Screen) باللوجو الجديد
+# 1. شاشة الترحيب (Splash Screen)
 if st.session_state.page == 'splash':
     st.markdown("<br>", unsafe_allow_html=True)
     
     col_l1, col_l2, col_l3 = st.columns([1, 1.2, 1])
     with col_l2:
+        # محاولة عرض اللوجو المحلي (تأكدي من رفع صورة اللوجو باسم logo.png في نفس مجلد الملفات على GitHub)
         try:
-            # رابط اللوجو الجديد الذي أرسلتِهِ
-            logo_url = "https://i.ibb.co/3yk7v82/1000227484.jpg"
-            response = requests.get(logo_url)
-            logo_img = Image.open(BytesIO(response.content))
-            st.image(logo_img, use_container_width=True)
+            if os.path.exists("logo.png"):
+                st.image("logo.png", use_container_width=True)
+            else:
+                # بديل احترافي في حال لم يتم رفع الصورة بعد
+                st.markdown("""
+                    <div style='text-align: center; padding: 25px; background: #1e3a8a; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);'>
+                        <h1 style='color: #ffffff; margin: 0; font-size: 28px;'>👁️ OrosVision AI</h1>
+                    </div>
+                """, unsafe_allow_html=True)
         except:
-            st.markdown("""
-                <div style='text-align: center; padding: 20px; background: #f8fafc; border-radius: 20px; border: 1px solid #cbd5e1;'>
-                    <h2 style='color: #1d4ed8; margin: 0; font-weight: 700;'>OrosVision AI</h2>
-                </div>
-            """, unsafe_allow_html=True)
+            pass
 
-    st.markdown("<h1 style='text-align: center; color: #1e3a8a; margin-top: 15px;'>OrosVision AI</h1>", unsafe_allow_html=True)
-    st.markdown("<h4 style='text-align: center; color: #2563eb;'>رُؤيةٌ تَسْتَبِقُ الظَّلام &nbsp;|&nbsp; Vision Preceding the Darkness</h4>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center; max-width: 600px; margin: 10px auto;'>Advanced Explainable AI (XAI) Translational Medical Platform for Early Glaucoma Screening and Longitudinal Fundus Monitoring via Smartphone Lens.</p>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; margin-top: 25px;'>OrosVision AI</h1>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center; color: #2563eb; font-size: 24px !important; margin-bottom: 15px;'>رُؤيةٌ تَسْتَبِقُ الظَّلام &nbsp;|&nbsp; Vision Preceding the Darkness</h2>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; max-width: 650px; margin: 0 auto 25px auto; font-size: 16px !important;'>Advanced Explainable AI (XAI) Translational Medical Platform for Early Glaucoma Screening and Longitudinal Fundus Monitoring via Smartphone Lens.</p>", unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns([1, 1, 1])
     with col2:
-        st.markdown("<br>", unsafe_allow_html=True)
         if st.button("⚕️ الدخول إلى المنصة الطبية | Enter Clinical Platform", use_container_width=True):
             st.session_state.page = 'intake'
             st.rerun()
@@ -114,7 +118,7 @@ if st.session_state.page == 'splash':
 
 # شريط التنقل العلوي
 st.title("🕯️ OrosVision AI: Clinical Intelligence Platform")
-st.markdown("<p style='color: #64748b;'>Translational Medical Screening System for Glaucoma & Optic Nerve Analysis (ISEF Project)</p>", unsafe_allow_html=True)
+st.markdown("<p style='color: #475569;'>Translational Medical Screening System for Glaucoma & Optic Nerve Analysis (ISEF Project)</p>", unsafe_allow_html=True)
 
 nav_col1, nav_col2, nav_col3, nav_col4 = st.columns(4)
 
