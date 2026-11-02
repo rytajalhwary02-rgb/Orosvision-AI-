@@ -12,43 +12,42 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# تخصيص CSS متطور: ألوان متناسقة، خطوط واضحة وغير رفيعة، وخلفية أنيقة
+# تخصيص CSS احترافي لضبط الواجهة، الألوان، ووضوح الخطوط
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;500;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&family=Inter:wght@500;600&display=swap');
     
     html, body, [class*="css"], .stApp {
         font-family: 'Cairo', 'Inter', sans-serif !important;
         direction: rtl;
-        background-color: #f4f6f9 !important;
+        background-color: #f8fafc !important;
         color: #0f172a !important;
     }
     
-    /* تنسيق الحقول بوضوح تام */
+    /* تنسيق الحقول بوضوح تام وخلفية بيضاء */
     input, textarea, select, div[data-baseweb="select"] > div {
         background-color: #ffffff !important;
         color: #0f172a !important;
         border: 1px solid #cbd5e1 !important;
         border-radius: 10px !important;
-        font-size: 14px !important;
-        font-weight: 500 !important;
+        font-size: 15px !important;
+        font-weight: 600 !important;
     }
     
-    /* أحجام وسُمك الخطوط الواضحة والمنسقة */
     p, span, label, li {
         font-size: 15px !important;
-        font-weight: 500 !important;
+        font-weight: 600 !important;
         color: #334155 !important;
     }
     
     h1 {
-        font-size: 32px !important;
+        font-size: 34px !important;
         font-weight: 900 !important;
         color: #1e3a8a !important;
     }
     
     h2 {
-        font-size: 22px !important;
+        font-size: 24px !important;
         font-weight: 700 !important;
         color: #1e3a8a !important;
     }
@@ -59,24 +58,25 @@ st.markdown("""
         color: #1e40af !important;
     }
     
-    /* تصميم الأزرار الاحترافية */
+    /* تصميم الأزرار بخط أبيض صريح وواضح */
     .stButton>button {
-        font-family: 'Cairo', sans-serif;
-        border-radius: 12px;
-        font-weight: 700;
-        font-size: 15px;
-        background-color: #1e3a8a;
-        color: #ffffff;
-        border: none;
-        padding: 10px 20px;
-        transition: all 0.3s ease;
+        font-family: 'Cairo', sans-serif !important;
+        border-radius: 12px !important;
+        font-weight: 700 !important;
+        font-size: 15px !important;
+        background-color: #1e3a8a !important;
+        color: #ffffff !important;
+        border: none !important;
+        padding: 12px 20px !important;
+        box-shadow: 0 4px 10px rgba(30, 58, 138, 0.15) !important;
+        transition: all 0.3s ease !important;
     }
     
     .stButton>button:hover {
-        background-color: #1d4ed8;
-        color: #ffffff;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 15px rgba(30, 58, 138, 0.25);
+        background-color: #1d4ed8 !important;
+        color: #ffffff !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 15px rgba(30, 58, 138, 0.3) !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -90,23 +90,22 @@ if st.session_state.page == 'splash':
     
     col_l1, col_l2, col_l3 = st.columns([1, 1.2, 1])
     with col_l2:
-        # محاولة عرض اللوجو المحلي (تأكدي من رفع صورة اللوجو باسم logo.png في نفس مجلد الملفات على GitHub)
+        # عرض اللوجو المحلي المرفوع في المستودع
         try:
             if os.path.exists("logo.png"):
-                st.image("logo.png", use_container_width=True)
+                st.image("logo.png", width=200)
             else:
-                # بديل احترافي في حال لم يتم رفع الصورة بعد
                 st.markdown("""
-                    <div style='text-align: center; padding: 25px; background: #1e3a8a; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);'>
-                        <h1 style='color: #ffffff; margin: 0; font-size: 28px;'>👁️ OrosVision AI</h1>
+                    <div style='text-align: center; padding: 20px; background: #1e3a8a; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin: 0 auto; width: fit-content;'>
+                        <h2 style='color: #ffffff; margin: 0; font-size: 24px;'>👁️ OrosVision AI</h2>
                     </div>
                 """, unsafe_allow_html=True)
         except:
             pass
 
-    st.markdown("<h1 style='text-align: center; margin-top: 25px;'>OrosVision AI</h1>", unsafe_allow_html=True)
-    st.markdown("<h2 style='text-align: center; color: #2563eb; font-size: 24px !important; margin-bottom: 15px;'>رُؤيةٌ تَسْتَبِقُ الظَّلام &nbsp;|&nbsp; Vision Preceding the Darkness</h2>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center; max-width: 650px; margin: 0 auto 25px auto; font-size: 16px !important;'>Advanced Explainable AI (XAI) Translational Medical Platform for Early Glaucoma Screening and Longitudinal Fundus Monitoring via Smartphone Lens.</p>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; margin-top: 20px;'>OrosVision AI</h1>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center; color: #2563eb; font-size: 26px !important; font-weight: 900 !important; margin-bottom: 15px;'>رُؤيةٌ تَسْتَبِقُ الظَّلام &nbsp;|&nbsp; Vision Preceding the Darkness</h2>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; max-width: 650px; margin: 0 auto 30px auto; font-size: 16px !important;'>Advanced Explainable AI (XAI) Translational Medical Platform for Early Glaucoma Screening and Longitudinal Fundus Monitoring via Smartphone Lens.</p>", unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns([1, 1, 1])
     with col2:
