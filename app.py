@@ -169,7 +169,7 @@ with nav_col3:
     if st.button("Longitudinal Tracking", use_container_width=True):
         st.session_state.page = 'temporal'
 with nav_col4:
-    if st.button("Medical Awareness🔅", use_container_width=True):
+    if st.button("Medical 🔅Awareness", use_container_width=True):
         st.session_state.page = 'awareness'
 
 st.markdown("<br>", unsafe_allow_html=True)
@@ -180,7 +180,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 if st.session_state.page == 'intake':
     st.markdown("""
         <div class="med-card">
-            <h2 style="margin-top:0; color: #1e3a8a;">📝 التسجيل الإكلينيكي للمريض | Patient Clinical Intake</h2>
+            <h2 style="margin-top:0; color: #1e3a8a;">Patient Clinical Intake</h2>
             <p style="color: #475569;">يُرجى استيفاء كافة بيانات المريض بدقة لضمان تفعيل محرك الفحص الذكي وربط التاريخ المرضي بالتحليل التفسيري (XAI).</p>
         </div>
     """, unsafe_allow_html=True)
@@ -188,24 +188,24 @@ if st.session_state.page == 'intake':
     with st.form("patient_intake_form"):
         col1, col2 = st.columns(2)
         with col1:
-            p_name = st.text_input("اسم المريض الثلاثي / كود الملف الطبي  (Patient Name / Medical ID)")
-            p_age = st.number_input("العمر (Age)", min_value=1, max_value=120, value=45)
+            p_name = st.text_input(" (Patient Name / Medical ID)")
+            p_age = st.number_input("(Age)", min_value=1, max_value=120, value=45)
         with col2:
-            p_gender = st.selectbox("الجنس (Gender)", ["ذكر (Male)", "أنثى (Female)"])
-            p_phone = st.text_input("رقم الهاتف للتواصل الطارئ (Phone Number)")
+            p_gender = st.selectbox(" (Gender)", ["ذكر (Male)", "أنثى (Female)"])
+            p_phone = st.text_input(" (Phone Number)")
 
-        st.markdown("<h3 style='color: #1e3a8a; margin-top: 22px;'>🧬 التاريخ المرضي وعوامل الخطورة (Clinical History & Risk Profile):</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='color: #1e3a8a; margin-top: 22px;'>(Clinical History & Risk Profile🧬):</h3>", unsafe_allow_html=True)
         c_diag1, c_diag2, c_diag3 = st.columns(3)
         with c_diag1:
-            has_diabetes = st.checkbox("مرض السكري (Diabetes Mellitus)")
+            has_diabetes = st.checkbox("(Diabetes Mellitus)")
         with c_diag2:
-            has_hypertension = st.checkbox("ارتفاع ضغط الدم (Hypertension)")
+            has_hypertension = st.checkbox("(Hypertension)")
         with c_diag3:
-            has_family = st.checkbox("تاريخ عائلي للجلوكوما (Family History)")
+            has_family = st.checkbox("(Family History)")
 
-        eye_notes = st.text_area("الأدوية الحالية والملاحظات الطبية (مثل: إنسولين، قطرات ضغط العين..)\nClinical notes / Current Medications:")
+        eye_notes = st.text_area("Clinical notes / Current Medications:")
 
-        submitted = st.form_submit_button("حفظ الاعتماد والانتقال للفحص ➡️ Save & Proceed to Screening")
+        submitted = st.form_submit_button("Save & Proceed to Screening➡️")
         if submitted:
             if not p_name.strip():
                 st.error("❌ عذراً، يجب تسجيل اسم المريض أو كود الملف الطبي أولاً!")
