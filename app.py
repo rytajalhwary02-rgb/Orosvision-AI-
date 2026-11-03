@@ -6,7 +6,7 @@ import os
 
 # إعدادات الواجهة وخصائص الصفحة
 st.set_page_config(
-    page_title="OrosVision AI",
+    page_title="OrosVisionAI",
     page_icon="𓂀",
     layout="wide",
     initial_sidebar_state="collapsed"
