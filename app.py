@@ -9,10 +9,10 @@ st.set_page_config(
     page_title="OrosVision AI",
     page_icon="👁️",
     layout="wide",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="expanded"
 )
 
-# تخصيص CSS متطور ليعطي نكهة وفيب تصميمات Dribbble الطبية الحديثة مع ضمان نعومة وانسيابية الانتقال
+# تخصيص CSS متطور ليعطي فيب تصميمات Dribbble الطبية الحديثة مع قائمة جانبية احترافية
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&family=Inter:wght@500;600;700&display=swap');
@@ -85,37 +85,15 @@ st.markdown("""
         color: #1d4ed8 !important;
     }
 
-    /* تنسيق أزرار التنقل العلوية لتكون سلسة وواضحة تماماً */
-    .stButton>button {
-        font-family: 'Cairo', sans-serif !important;
-        border-radius: 16px !important;
-        font-weight: 800 !important;
-        font-size: 15px !important;
-        background: rgba(255, 255, 255, 0.95) !important;
-        color: #1e3a8a !important;
-        border: 1.5px solid #cbd5e1 !important;
-        padding: 12px 18px !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
-        transition: all 0.3s ease !important;
-        width: 100%;
-    }
-    
-    .stButton>button:hover {
-        background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%) !important;
-        color: #ffffff !important;
-        border-color: transparent !important;
-        transform: translateY(-2px) !important;
-        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25) !important;
+    /* تنسيق القائمة الجانبية (Sidebar) لتكون ثابتة ومرتبة وفخمة */
+    [data-testid="stSidebar"] {
+        background-color: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(15px);
+        border-left: 1px solid #e2e8f0;
+        padding-top: 20px;
     }
     </style>
 """, unsafe_allow_html=True)
-
-# إدارة حالة التنقل عبر صفحات التطبيق (Session State) لمنع أي تهنيج أو رجوع غير مرغوب
-if 'active_page' not in st.session_state:
-    st.session_state.active_page = 'home'
-
-def navigate_to(page_name):
-    st.session_state.active_page = page_name
 
 # دالة ذكية للبحث عن اللوجو محلياً
 def find_logo():
@@ -127,53 +105,37 @@ def find_logo():
                 return f
     return None
 
-# الهيدر العلوي الموحد الثابت للتنقل السلس والسريع بين الأقسام
-st.markdown("""
-    <div style="background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); padding: 18px 25px; border-radius: 22px; border: 1px solid rgba(255, 255, 255, 1); margin-bottom: 25px; box-shadow: 0 8px 25px rgba(0,0,0,0.03); display: flex; align-items: center; justify-content: space-between;">
-        <h2 style="margin:0; color: #1e3a8a; font-size: 24px !important;">OrosVision AI &nbsp;<span style="font-size: 14px; color: #64748b; font-weight: 600;">| Translational Clinical Screening</span></h2>
-    </div>
-""", unsafe_allow_html=True)
-
-# أزرار التنقل السريعة (تضمن الانتقال الفوري بدون مشاكل الـ Sidebar)
-nav_col1, nav_col2, nav_col3, nav_col4, nav_col5, nav_col6 = st.columns(6)
-
-with nav_col1:
-    if st.button("🏠 الرئيسية"):
-        navigate_to('home')
-        st.rerun()
-with nav_col2:
-    if st.button("📝 التسجيل"):
-        navigate_to('intake')
-        st.rerun()
-with nav_col3:
-    if st.button("🔍 الفحص"):
-        navigate_to('screening')
-        st.rerun()
-with nav_col4:
-    if st.button("📈 المتابعة"):
-        navigate_to('temporal')
-        st.rerun()
-with nav_col5:
-    if st.button("📊 التقارير"):
-        navigate_to('reports')
-        st.rerun()
-with nav_col6:
-    if st.button("💡 التوعية"):
-        navigate_to('awareness')
-        st.rerun()
-
-st.markdown("<br>", unsafe_allow_html=True)
+# -------------------------------------------------------------
+# القائمة الجانبية المنتظمة (Sidebar) - اللوجو فوق والقوائم تحتها بوضوح
+# -------------------------------------------------------------
+with st.sidebar:
+    logo_path = find_logo()
+    if logo_path:
+        st.image(logo_path, use_container_width=True)
+    
+    st.markdown("<h3 style='text-align: center; color: #1e3a8a; margin-top: 10px;'>OrosVision AI</h3>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; font-size: 14px !important; color: #64748b;'>رؤية تستبق الظلام</p>", unsafe_allow_html=True)
+    st.markdown("---")
+    
+    page = st.radio(
+        "اختر القسم المطلوب:",
+        [
+            "🏠 الرئيسية",
+            "📝 التسجيل الإكلينيكي",
+            "🔍 الفحص الذكي",
+            "📈 المتابعة الزمنية",
+            "💡 التوعية والأمل"
+        ]
+    )
+    
+    st.markdown("---")
+    st.markdown("<p style='font-size: 13px !important; color: #94a3b8; text-align: center;'>ISEF Research Project © 2026</p>", unsafe_allow_html=True)
 
 # -------------------------------------------------------------
 # 1. الصفحة الرئيسية
 # -------------------------------------------------------------
-if st.session_state.active_page == 'home':
-    col_l1, col_l2, col_l3 = st.columns([1, 1.5, 1])
-    with col_l2:
-        logo_path = find_logo()
-        if logo_path:
-            st.image(logo_path, use_container_width=True)
-
+if page == "🏠 الرئيسية":
+    st.markdown("<br>", unsafe_allow_html=True)
     st.markdown("""
         <div class="med-card" style="text-align: center; max-width: 850px; margin: 0 auto;">
             <h1 style="color: #1e3a8a; font-size: 42px !important; margin-bottom: 10px;">رُؤيةٌ تَسْتَبِقُ الظَّلام</h1>
@@ -187,7 +149,7 @@ if st.session_state.active_page == 'home':
 # -------------------------------------------------------------
 # 2. التسجيل الإكلينيكي
 # -------------------------------------------------------------
-elif st.session_state.active_page == 'intake':
+elif page == "📝 التسجيل الإكلينيكي":
     st.markdown("<h2 style='color: #1e3a8a;'>📝 التسجيل الإكلينيكي للمريض | Patient Clinical Intake</h2>", unsafe_allow_html=True)
     
     with st.form("patient_intake_form"):
@@ -219,22 +181,16 @@ elif st.session_state.active_page == 'intake':
                 st.session_state['has_diabetes'] = has_diabetes
                 st.session_state['eye_notes'] = eye_notes
                 st.session_state['intake_complete'] = True
-                st.success("✅ تم حفظ الملف الإكلينيكي بنجاح! جاري التوجيه للفحص...")
-                time.sleep(1)
-                st.session_state.active_page = 'screening'
-                st.rerun()
+                st.success("✅ تم حفظ الملف الإكلينيكي بنجاح!")
 
 # -------------------------------------------------------------
 # 3. الفحص الذكي
 # -------------------------------------------------------------
-elif st.session_state.active_page == 'screening':
+elif page == "🔍 الفحص الذكي":
     st.markdown("<h2 style='color: #1e3a8a;'>🔍 الفحص اللحظي لقاع العين والتحليل التفسيري (XAI Screening)</h2>", unsafe_allow_html=True)
 
     if not st.session_state.get('intake_complete', False):
-        st.warning("⚠️ تنبيه: يُرجى تسجيل بيانات المريض أولاً من قسم 'التسجيل الإكلينيكي'.")
-        if st.button("الانتقال لصفحة التسجيل ⬅️"):
-            st.session_state.active_page = 'intake'
-            st.rerun()
+        st.warning("⚠️ تنبيه: يُرجى تسجيل بيانات المريض أولاً من قسم 'التسجيل الإكلينيكي' في القائمة الجانبية.")
     else:
         patient_name = st.session_state.get('patient_name', 'غير محدد')
         
@@ -273,7 +229,7 @@ elif st.session_state.active_page == 'screening':
 # -------------------------------------------------------------
 # 4. المتابعة الزمنية
 # -------------------------------------------------------------
-elif st.session_state.active_page == 'temporal':
+elif page == "📈 المتابعة الزمنية":
     st.markdown("<h2 style='color: #1e3a8a;'>📈 لوحة المتابعة الزمنية لتطور العصب البصري</h2>", unsafe_allow_html=True)
     
     col_old, col_new = st.columns(2)
@@ -294,28 +250,14 @@ elif st.session_state.active_page == 'temporal':
         st.markdown("</div>", unsafe_allow_html=True)
 
 # -------------------------------------------------------------
-# 5. تقارير وإحصائيات
+# 5. التوعية والأمل
 # -------------------------------------------------------------
-elif st.session_state.active_page == 'reports':
-    st.markdown("<h2 style='color: #1e3a8a;'>📊 لوحة التقارير الشاملة والإحصائيات الإكلينيكية</h2>", unsafe_allow_html=True)
-    st.markdown("""
-        <div class="med-card">
-            <h3>📈 ملخص أداء المنصة والتشخيصات المسجلة:</h3>
-            <p>• إجمالي الفحوصات التي تم إجراؤها: <b>142 فحصاً</b></p>
-            <p>• نسبة دقة الكشف المبكر (Accuracy): <b>96.4%</b></p>
-            <p>• الحالات التي تم تحويلها للمتابعة المختصة: <b>12 حالة</b></p>
-        </div>
-    """, unsafe_allow_html=True)
-
-# -------------------------------------------------------------
-# 6. التوعية والأمل
-# -------------------------------------------------------------
-elif st.session_state.active_page == 'awareness':
+elif page == "💡 التوعية والأمل":
     st.markdown("""
         <div class="med-card">
             <h2 style="color: #1e3a8a; margin-top:0;">💡 رسالة أمل ونبض إنساني</h2>
             <p style="font-size: 19px !important; color: #1e3a8a; font-weight: 700 !important; line-height: 1.8; margin-bottom: 20px;">
-                "النور هو أغلى ما يمتلكه الإنسان لرؤية أحبابه وجمال هذا العالم.. والجلوكوما تُعرف بـ (اللص الصامت للبصر لأنها تسرق النور تدريجياً وبدون ألم."
+                "النور هو أغلى ما يمتلكه الإنسان لرؤية أحبابه وجمال هذا العالم.. والجلوكوما تُعرف بـ (اللص الصامت للبصر) لأنها تسرق النور تدريجياً وبدون ألم."
             </p>
             <p style="font-size: 17px !important; color: #334155; line-height: 1.8;">
                 لأننا نؤمن أن كل عين تستحق أن تستمر في رؤية النور، ولأن الكشف المبكر يحمي أكثر من <b>90%</b> من المرضى من فقدان البصر الدائم، وُلدت منصة <b>OrosVision AI</b>.. لكي نكون درعاً وقائياً يحمي العيون قبل أن يمتد إليها الظلام.
