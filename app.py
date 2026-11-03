@@ -169,7 +169,7 @@ with nav_col3:
     if st.button("Longitudinal Tracking", use_container_width=True):
         st.session_state.page = 'temporal'
 with nav_col4:
-    if st.button("Medical Awareness", use_container_width=True):
+    if st.button("Medical Awareness🔆", use_container_width=True):
         st.session_state.page = 'awareness'
 
 st.markdown("<br>", unsafe_allow_html=True)
@@ -348,7 +348,13 @@ elif st.session_state.page == 'awareness':
             </p>
             <div style="margin-top: 25px; padding: 22px; background: rgba(239, 246, 255, 0.95); border-radius: 18px; border-left: 6px solid #1e3a8a;">
                 <p style="margin: 0; color: #1e40af; font-weight: 900; font-size: 19px !important; line-height: 1.8;">
-                    Light fades without a sound, and only early vigilance stands against the dark. This platform is a watchful eye, intercepting the unseen before it claims your sight 🔆.
+                
+
+  الضُّـوء ينسلُّ بلا صَخب، و اليقظـةُ المبكرَة تُقيم السدَّ بوجه العتمـة . هذا الموقع عينٌ ساهِـرة ترصد الخلل قبل أن يطَـال البصر🔆 .
+
+
+
+  Light fades without a sound, and only early vigilance stands against the dark. This platform is a watchful eye, intercepting the unseen before it claims your sight 🔆.
                 </p>
             </div>
         </div>
