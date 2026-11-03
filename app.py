@@ -12,7 +12,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# تخصيص CSS متطور: ظبط مقاسات الكلمة الأولى لتظهر في سطر واحد وبحجم متناسق ومريح
+# تخصيص CSS متطور: لون السكري الهادئ، أزرق غير فاقع، وتغميق مربعات الرفع لتظهر بوضوح تام
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;800;900&family=Inter:wght@600;800;900&display=swap');
@@ -42,21 +42,21 @@ st.markdown("""
         transform: translateY(-2px);
     }
     
-    /* تنسيق الحقول والنماذج بخطوط أثخن وأوضح */
-    input, textarea, select, div[data-baseweb="select"] > div {
-        background-color: #faf9f5 !important;
+    /* تنسيق الحقول ومناطق رفع الملفات لتكون ظاهرة ومرئية بوضوح بتركيز على التباين */
+    input, textarea, select, div[data-baseweb="select"] > div, div[data-testid="stFileUploader"] {
+        background-color: #eae5dc !important;
         color: #0f172a !important;
         border: 2px solid #cbd5e1 !important;
         border-radius: 16px !important;
         font-size: 17px !important;
         font-weight: 700 !important;
-        padding: 14px 18px !important;
+        padding: 10px !important;
     }
     
     input:focus, textarea:focus {
-        border-color: #2563eb !important;
+        border-color: #3b82f6 !important;
         background-color: #ffffff !important;
-        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1) !important;
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15) !important;
     }
     
     /* أحجام الخطوط العادية الواضحة */
@@ -85,28 +85,28 @@ st.markdown("""
         color: #1d4ed8 !important;
     }
     
-    /* ظبط مقاس اسم المنصة ليبقى متناسقاً وفي سطر واحد تماماً بدون أي نزول للسطر */
+    /* عنوان المنصة باللغة العربية بلون أزرق هادئ غير فاقع ومريح للعين */
     .hero-title-en {
         font-family: 'Inter', sans-serif !important;
-        font-size: 44px !important;
+        font-size: 42px !important;
         font-weight: 900 !important;
         color: #1e3a8a !important;
         letter-spacing: -0.5px;
         line-height: 1.2;
-        margin-bottom: 15px;
+        margin-bottom: 12px;
         white-space: nowrap;
     }
 
     .hero-title-ar {
         font-family: 'Cairo', sans-serif !important;
-        font-size: 36px !important;
+        font-size: 34px !important;
         font-weight: 900 !important;
-        color: #2563eb !important;
+        color: #3b82f6 !important;
         line-height: 1.4;
-        margin-bottom: 25px;
+        margin-bottom: 22px;
     }
 
-    /* أزرار التنقل والتبويب بتصميم أثخن وأوضح */
+    /* أزرار التنقل والتبويب بأزرق هادئ وغير فاقع عند الضغط أو التحويم */
     .stButton>button {
         font-family: 'Inter', sans-serif !important;
         border-radius: 16px !important;
@@ -121,11 +121,11 @@ st.markdown("""
     }
     
     .stButton>button:hover {
-        background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%) !important;
+        background: linear-gradient(135deg, #2563eb 100%, #3b82f6 0%) !important;
         color: #ffffff !important;
         border-color: transparent !important;
         transform: translateY(-2px) !important;
-        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25) !important;
+        box-shadow: 0 8px 20px rgba(59, 130, 246, 0.25) !important;
     }
     </style>
 """, unsafe_allow_html=True)
