@@ -12,21 +12,21 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# تخصيص CSS متطور ليعطي نكهة وفيب تصميمات Dribbble الطبية الحديثة (Bento Grid Style)
+# تخصيص CSS متطور ليعطي نكهة وفيب تصميمات Dribbble الطبية الحديثة مع خطوط أعرض وأكثر وضوحاً
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&family=Inter:wght@500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;800;900&family=Inter:wght@600;700;900&display=swap');
     
     html, body, [class*="css"], .stApp {
-        font-family: 'Cairo', 'Inter', sans-serif !important;
-        direction: rtl;
+        font-family: 'Inter', 'Cairo', sans-serif !important;
+        direction: ltr;
         background: linear-gradient(135deg, #f0f4f8 0%, #e9eff5 100%) !important;
         color: #0f172a !important;
     }
     
     /* بطاقات الـ Bento Grid الفاخرة المماثلة لتصميمات Dribbble */
     .med-card {
-        background: rgba(255, 255, 255, 0.85);
+        background: rgba(255, 255, 255, 0.9);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
         border-radius: 28px;
@@ -42,13 +42,13 @@ st.markdown("""
         transform: translateY(-2px);
     }
     
-    /* تنسيق الحقول والنماذج بانسيابية تامة */
+    /* تنسيق الحقول والنماذج بخطوط أثخن وأوضح */
     input, textarea, select, div[data-baseweb="select"] > div {
         background-color: #f8fafc !important;
         color: #0f172a !important;
-        border: 1.5px solid #cbd5e1 !important;
+        border: 2px solid #cbd5e1 !important;
         border-radius: 16px !important;
-        font-size: 16px !important;
+        font-size: 17px !important;
         font-weight: 700 !important;
         padding: 14px 18px !important;
     }
@@ -59,43 +59,43 @@ st.markdown("""
         box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1) !important;
     }
     
-    /* أحجام الخطوط الواضحة والاحترافية */
+    /* أحجام الخطوط الواضحة والثخينة */
     p, span, label, li {
-        font-size: 17px !important;
-        font-weight: 600 !important;
-        color: #334155 !important;
+        font-size: 18px !important;
+        font-weight: 700 !important;
+        color: #1e293b !important;
         line-height: 1.8;
     }
     
     h1 {
-        font-size: 40px !important;
+        font-size: 46px !important;
         font-weight: 900 !important;
         color: #1e3a8a !important;
     }
     
     h2 {
-        font-size: 28px !important;
-        font-weight: 800 !important;
+        font-size: 32px !important;
+        font-weight: 900 !important;
         color: #1e3a8a !important;
     }
     
     h3, h4 {
-        font-size: 22px !important;
-        font-weight: 700 !important;
+        font-size: 24px !important;
+        font-weight: 800 !important;
         color: #1d4ed8 !important;
     }
     
-    /* أزرار التنقل والتبويب بتصميم عصري وناعم */
+    /* أزرار التنقل والتبويب بتصميم أثخن وأوضح */
     .stButton>button {
-        font-family: 'Cairo', sans-serif !important;
+        font-family: 'Inter', sans-serif !important;
         border-radius: 16px !important;
-        font-weight: 800 !important;
-        font-size: 16px !important;
-        background: rgba(255, 255, 255, 0.9) !important;
+        font-weight: 900 !important;
+        font-size: 17px !important;
+        background: rgba(255, 255, 255, 0.95) !important;
         color: #1e3a8a !important;
-        border: 1.5px solid #cbd5e1 !important;
+        border: 2px solid #cbd5e1 !important;
         padding: 14px 22px !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04) !important;
         transition: all 0.3s ease !important;
     }
     
@@ -122,7 +122,7 @@ def find_logo():
                 return f
     return None
 
-# 1. شاشة الترحيب (Splash Page)
+# 1. شاشة الترحيب (Splash Page) - العنوان مكبر وأثخن
 if st.session_state.page == 'splash':
     st.markdown("<br>", unsafe_allow_html=True)
     
@@ -133,18 +133,18 @@ if st.session_state.page == 'splash':
             st.image(logo_path, use_container_width=True)
 
     st.markdown("""
-        <div class="med-card" style="text-align: center; max-width: 820px; margin: 20px auto;">
-            <h1 style="color: #1e3a8a; font-size: 42px !important; font-weight: 900 !important; margin-bottom: 8px;">رُؤيةٌ تَسْتَبِقُ الظَّلام</h1>
-            <h3 style="color: #2563eb; font-size: 24px !important; font-weight: 700 !important; margin-bottom: 20px;">Vision Preceding the Darkness</h3>
-            <p style="font-size: 18px !important; color: #475569; line-height: 1.8;">
-                منصة طبية تشخيصية متطورة تدمج الذكاء الاصطناعي التفسيري (XAI) وعدسة الهواتف الذكية لاكتشاف الجلوكوما مبكراً ومتابعة تطور العصب البصري عبر الزمن.
+        <div class="med-card" style="text-align: center; max-width: 860px; margin: 20px auto;">
+            <h1 style="color: #1e3a8a; font-size: 52px !important; font-weight: 900 !important; margin-bottom: 12px; letter-spacing: -0.5px;">Vision Preceding the Darkness</h1>
+            <h3 style="color: #2563eb; font-size: 26px !important; font-weight: 800 !important; margin-bottom: 22px;">رؤيةٌ تستبق الظلام</h3>
+            <p style="font-size: 19px !important; color: #334155; line-height: 1.9; font-weight: 700 !important;">
+                Advanced clinical diagnostic platform integrating Explainable Artificial Intelligence (XAI) and smartphone lenses for early glaucoma detection and longitudinal optic nerve monitoring.
             </p>
         </div>
     """, unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns([1, 1.3, 1])
     with col2:
-        if st.button("⚕️ الدخول إلى المنصة الطبية | Enter Clinical Platform", use_container_width=True):
+        if st.button("⚕️ Enter Clinical Platform", use_container_width=True):
             st.session_state.page = 'intake'
             st.rerun()
             
@@ -152,8 +152,8 @@ if st.session_state.page == 'splash':
 
 # الهيدر الطبي العلوي (Navigation Bar)
 st.markdown("""
-    <div style="background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); padding: 24px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 1); margin-bottom: 25px; box-shadow: 0 8px 25px rgba(0,0,0,0.03);">
-        <h2 style="margin:0; color: #1e3a8a; font-size: 26px !important;">OrosVision AI &nbsp;<span style="font-size: 16px; color: #64748b; font-weight: 600;">| Translational Clinical Screening Platform</span></h2>
+    <div style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); padding: 24px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 1); margin-bottom: 25px; box-shadow: 0 8px 25px rgba(0,0,0,0.03);">
+        <h2 style="margin:0; color: #1e3a8a; font-size: 28px !important;">OrosVision AI &nbsp;<span style="font-size: 17px; color: #475569; font-weight: 800;">| Translational Clinical Screening Platform</span></h2>
     </div>
 """, unsafe_allow_html=True)
 
@@ -169,7 +169,7 @@ with nav_col3:
     if st.button("Longitudinal Tracking", use_container_width=True):
         st.session_state.page = 'temporal'
 with nav_col4:
-    if st.button("Medical 🔅Awareness", use_container_width=True):
+    if st.button("Medical Awareness", use_container_width=True):
         st.session_state.page = 'awareness'
 
 st.markdown("<br>", unsafe_allow_html=True)
@@ -181,40 +181,40 @@ if st.session_state.page == 'intake':
     st.markdown("""
         <div class="med-card">
             <h2 style="margin-top:0; color: #1e3a8a;">Patient Clinical Intake</h2>
-            <p style="color: #475569;">يُرجى استيفاء كافة بيانات المريض بدقة لضمان تفعيل محرك الفحص الذكي وربط التاريخ المرضي بالتحليل التفسيري (XAI).</p>
+            <p style="color: #334155;">Please accurately complete all patient details to activate the intelligent screening engine and link clinical history with Explainable AI (XAI) analysis.</p>
         </div>
     """, unsafe_allow_html=True)
 
     with st.form("patient_intake_form"):
         col1, col2 = st.columns(2)
         with col1:
-            p_name = st.text_input(" (Patient Name / Medical ID)")
-            p_age = st.number_input("(Age)", min_value=1, max_value=120, value=45)
+            p_name = st.text_input("Patient Name / Medical ID")
+            p_age = st.number_input("Age", min_value=1, max_value=120, value=45)
         with col2:
-            p_gender = st.selectbox(" (Gender)", ["ذكر (Male)", "أنثى (Female)"])
-            p_phone = st.text_input(" (Phone Number)")
+            p_gender = st.selectbox("Gender", ["Male", "Female"])
+            p_phone = st.text_input("Phone Number")
 
-        st.markdown("<h3 style='color: #1e3a8a; margin-top: 22px;'>(Clinical History & Risk Profile🧬):</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='color: #1e3a8a; margin-top: 22px;'>Clinical History & Risk Profile 🧬:</h3>", unsafe_allow_html=True)
         c_diag1, c_diag2, c_diag3 = st.columns(3)
         with c_diag1:
-            has_diabetes = st.checkbox("(Diabetes Mellitus)")
+            has_diabetes = st.checkbox("Diabetes Mellitus")
         with c_diag2:
-            has_hypertension = st.checkbox("(Hypertension)")
+            has_hypertension = st.checkbox("Hypertension")
         with c_diag3:
-            has_family = st.checkbox("(Family History)")
+            has_family = st.checkbox("Family History of Glaucoma")
 
         eye_notes = st.text_area("Clinical notes / Current Medications:")
 
-        submitted = st.form_submit_button("Save & Proceed to Screening➡️")
+        submitted = st.form_submit_button("Save & Proceed to Screening ➡️")
         if submitted:
             if not p_name.strip():
-                st.error("❌ عذراً، يجب تسجيل اسم المريض أو كود الملف الطبي أولاً!")
+                st.error("❌ Error: Please enter the patient name or medical file ID first!")
             else:
                 st.session_state['patient_name'] = p_name
                 st.session_state['has_diabetes'] = has_diabetes
                 st.session_state['eye_notes'] = eye_notes
                 st.session_state['intake_complete'] = True
-                st.success("✅ تم حفظ الملف الإكلينيكي بنجاح! جاري توجيهك لصفحة الفحص الذكي...")
+                st.success("✅ Clinical profile saved successfully! Redirecting to smart screening...")
                 time.sleep(1)
                 st.session_state.page = 'screening'
                 st.rerun()
@@ -223,43 +223,43 @@ if st.session_state.page == 'intake':
 # الصفحة الثانية: الفحص اللحظي لقاع العين
 # -------------------------------------------------------------
 elif st.session_state.page == 'screening':
-    st.markdown("<h2 style='color: #1e3a8a;'>🔍 الفحص اللحظي لقاع العين والتحليل التفسيري (XAI Screening)</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='color: #1e3a8a;'>🔍 Fundus Image Screening & XAI Analysis</h2>", unsafe_allow_html=True)
 
     if not st.session_state.get('intake_complete', False):
-        st.warning("⚠️ تنبيه أمني: يجب إدخال بيانات المريض أولاً في صفحة التسجيل الإكلينيكي!")
-        if st.button("الانتقال لصفحة التسجيل ⬅️ Go to Intake"):
+        st.warning("⚠️ Security Notice: You must enter patient details first in the Clinical Intake page!")
+        if st.button("Go to Intake ⬅️"):
             st.session_state.page = 'intake'
             st.rerun()
     else:
-        patient_name = st.session_state.get('patient_name', 'غير محدد')
+        patient_name = st.session_state.get('patient_name', 'Not Specified')
         has_dia = st.session_state.get('has_diabetes', False)
         notes = st.session_state.get('eye_notes', '')
         
-        is_diabetic_profile = has_dia or ('انسولين' in notes.lower()) or ('سكري' in notes.lower())
+        is_diabetic_profile = has_dia or ('insulin' in notes.lower()) or ('diabetes' in notes.lower()) or ('سكري' in notes.lower()) or ('انسولين' in notes.lower())
 
         st.markdown(f"""
             <div class="med-card" style="padding: 18px 25px;">
-                <span>👤 <b>المريض:</b> {patient_name}</span> &nbsp;|&nbsp; 
-                <span>🩺 <b>حالة السكري والأدوية:</b> {'مُصاب (إنسولين / أدوية سكر)' if is_diabetic_profile else 'غير مُسجل'}</span>
+                <span>👤 <b>Patient:</b> {patient_name}</span> &nbsp;|&nbsp; 
+                <span>🩺 <b>Diabetes & Med Status:</b> {'Confirmed (Insulin / Antidiabetic)' if is_diabetic_profile else 'None Registered'}</span>
             </div>
         """, unsafe_allow_html=True)
         
-        uploaded_file = st.file_uploader("اختر أو ارفع صورة قاع العين المعتمدة (Fundus Image)...", type=["jpg", "jpeg", "png"])
+        uploaded_file = st.file_uploader("Upload or select approved fundus image...", type=["jpg", "jpeg", "png"])
 
         if uploaded_file is not None:
             col_img1, col_img2 = st.columns(2)
             with col_img1:
                 st.markdown("<div class='med-card'>", unsafe_allow_html=True)
-                st.subheader("📷 صورة قاع العين المُرفقة")
+                st.subheader("📷 Attached Fundus Image")
                 img = Image.open(uploaded_file)
                 st.image(img, use_container_width=True)
                 st.markdown("</div>", unsafe_allow_html=True)
                 
             with col_img2:
                 st.markdown("<div class='med-card'>", unsafe_allow_html=True)
-                st.subheader("🔬 نتائج التحليل والنسب الذكية (AI Metrics)")
+                st.subheader("🔬 AI Metrics & Analysis Results")
                 
-                with st.spinner("جاري دمج البيانات الإكلينيكية مع تحليل الخوارزمية..."):
+                with st.spinner("Integrating clinical data with neural network analysis..."):
                     time.sleep(1)
                     img_gray = img.convert("L").resize((128, 128))
                     img_arr = np.array(img_gray)
@@ -278,20 +278,20 @@ elif st.session_state.page == 'screening':
                         p_glaucoma = 12.5
                         p_other = 5.5
 
-                st.metric(label="🟢 احتمالية الحالة السليمة (Normal Probability)", value=f"{p_normal:.1f}%")
-                st.metric(label="🔴 احتمالية الإصابة بالجلوكوما (Glaucoma Risk)", value=f"{p_glaucoma:.1f}%")
-                st.metric(label="🟡 احتمالية أمراض شبكية أخرى (Retinal Risk)", value=f"{p_other:.1f}%")
+                st.metric(label="🟢 Normal Probability", value=f"{p_normal:.1f}%")
+                st.metric(label="🔴 Glaucoma Risk Probability", value=f"{p_glaucoma:.1f}%")
+                st.metric(label="🟡 Other Retinal Risk Probability", value=f"{p_other:.1f}%")
 
                 if is_diabetic_profile:
-                    st.info("💡 **تحليل متكامل (XAI Integration):** تم ربط تاريخ السكري بالتحليل لرفع حساسيه رصد التغيرات الوعائية.")
+                    st.info("💡 **XAI Integration:** Diabetes history integrated with the analysis to increase sensitivity for vascular changes.")
 
                 if p_glaucoma < 20 and p_other < 40:
-                    st.success("✨ **نتيجة اطمئنان:** المؤشرات الإكلينيكية ضمن الحدود السليمة.")
+                    st.success("✨ **Reassurance Result:** Clinical indicators are within normal limits.")
                 st.markdown("</div>", unsafe_allow_html=True)
                 
             st.markdown("<div class='med-card'>", unsafe_allow_html=True)
-            st.markdown("<h3>🧠 خريطة التفسير الحرارية (Grad-CAM & XAI Heatmap):</h3>", unsafe_allow_html=True)
-            st.info("توضح الخريطة الحرارية مناطق تركيز النموذج العصبي على القرص البصري (Optic Disc).")
+            st.markdown("<h3>🧠 Grad-CAM & XAI Heatmap:</h3>", unsafe_allow_html=True)
+            st.info("The heatmap illustrates neural network attention zones focused on the optic disc.")
             heatmap_sim = Image.fromarray(np.uint8(img_arr * 0.9))
             st.image(heatmap_sim, caption="Grad-CAM Attention Map Overlay", use_container_width=True)
             st.markdown("</div>", unsafe_allow_html=True)
@@ -300,59 +300,55 @@ elif st.session_state.page == 'screening':
 # الصفحة الثالثة: المتابعة الزمنية (Longitudinal Tracking)
 # -------------------------------------------------------------
 elif st.session_state.page == 'temporal':
-    st.markdown("<h2 style='color: #1e3a8a;'>📈 لوحة المتابعة الزمنية لتطور العصب البصري (Longitudinal Tracking)</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='color: #1e3a8a;'>📈 Longitudinal Tracking & Optic Nerve Progression</h2>", unsafe_allow_html=True)
 
     col_old, col_new = st.columns(2)
     with col_old:
         st.markdown("<div class='med-card'>", unsafe_allow_html=True)
-        st.markdown("<h3>📁 الفحص الأرشيفي القديم (Baseline)</h3>", unsafe_allow_html=True)
-        old_file = st.file_uploader("اختر صورة الفحص القديم", type=["jpg", "png", "jpeg"], key="old_img")
+        st.markdown("<h3>📁 Baseline Scan</h3>", unsafe_allow_html=True)
+        old_file = st.file_uploader("Select baseline fundus image", type=["jpg", "png", "jpeg"], key="old_img")
         if old_file:
             st.image(Image.open(old_file), caption="Baseline Fundus Image", use_container_width=True)
         st.markdown("</div>", unsafe_allow_html=True)
 
     with col_new:
         st.markdown("<div class='med-card'>", unsafe_allow_html=True)
-        st.markdown("<h3>📁 الفحص الحديث (Follow-up)</h3>", unsafe_allow_html=True)
-        new_file = st.file_uploader("اختر صورة الفحص الحديث", type=["jpg", "png", "jpeg"], key="new_img")
+        st.markdown("<h3>📁 Follow-up Scan</h3>", unsafe_allow_html=True)
+        new_file = st.file_uploader("Select follow-up fundus image", type=["jpg", "png", "jpeg"], key="new_img")
         if new_file:
             st.image(Image.open(new_file), caption="Follow-up Fundus Image", use_container_width=True)
         st.markdown("</div>", unsafe_allow_html=True)
 
     if old_file and new_file:
         st.markdown("<div class='med-card'>", unsafe_allow_html=True)
-        st.subheader("📊 تحليل الفارق الزمني الإكلينيكي (Clinical Progression):")
-        with st.spinner("جاري حساب معدل التطور ومقارنة الصور..."):
+        st.subheader("📊 Clinical Progression Analysis:")
+        with st.spinner("Calculating progression rate and comparing scans..."):
             time.sleep(1)
             arr_o = np.array(Image.open(old_file).convert("L").resize((64, 64)))
             arr_n = np.array(Image.open(new_file).convert("L").resize((64, 64)))
             diff_val = float(np.mean(np.abs(arr_o.astype(float) - arr_n.astype(float))))
             prog_rate = float(diff_val * 0.25)
 
-        st.metric(label="معدل التغير في تقعر العصب البصري (Cup-to-Disc Ratio Change)", value=f"{prog_rate:+.1f}%")
-        st.success("🤍 **استقرار الحالة (Stable):** لا يوجد تدهور ملحوظ في الألياف العصبية بين الفحصين.")
+        st.metric(label="Cup-to-Disc Ratio Progression Rate", value=f"{prog_rate:+.1f}%")
+        st.success("🤍 **Stable Condition:** No significant nerve fiber degradation detected between the scans.")
         st.markdown("</div>", unsafe_allow_html=True)
 
 # -------------------------------------------------------------
-# الصفحة الرابعة: التوعية الطبية (محدثة لتكون ملامسة للقلب)
+# الصفحة الرابعة: التوعية الطبية (Medical Awareness)
 # -------------------------------------------------------------
 elif st.session_state.page == 'awareness':
     st.markdown("""
         <div class="med-card">
-            <h2 style="color: #1e3a8a; margin-top:0;">💌رسالـةُ أملٍ ونبضٌ إنسانِي | Medical Awareness & Heart</h2>
-            <p style="font-size: 19px !important; color: #1e3a8a; font-weight: 700 !important; line-height: 1.8; margin-bottom: 20px;">
-                "النور هو أغلى ما يمتلكه الإنسان لرؤية أحبابه وجمال هذا العالم.. والجلوكوما تُعرف بـ (اللص الصامت للبصر) لأنها تسرق النور تدريجياً وبدون ألم."
+            <h2 style="color: #1e3a8a; margin-top:0;">💌 A Message of Hope & Human Heart | Medical Awareness</h2>
+            <p style="font-size: 20px !important; color: #1e3a8a; font-weight: 800 !important; line-height: 1.8; margin-bottom: 20px;">
+                "Light is the most precious gift a person possesses to witness their loved ones and the beauty of this world.. and Glaucoma is known as the 'Silent Thief of Sight' because it steals light gradually and without pain."
             </p>
-            <p style="font-size: 17px !important; color: #334155; line-height: 1.8;">
-                لأننا نؤمن أن كل عين تستحق أن تستمر في رؤية النور، ولأن الكشف المبكر يحمي أكثر من <b>90%</b> من المرضى من فقدان البصر الدائم (وفقًا لتقديرات منظمة الصحة العالمية)، وُلدت منصة <b>OrosVision AI</b>.. لكي نكون دِرعًا وقائيًـا يحمي العُيون قبل أن يمتد إليها الظلام . 
+            <p style="font-size: 18px !important; color: #334155; line-height: 1.9; font-weight: 700 !important;">
+                Because we believe every eye deserves to keep seeing the light, and because early detection protects over <b>90%</b> of patients from permanent vision loss (according to World Health Organization estimates), <b>OrosVision AI</b> was born.. to serve as a protective shield guarding eyes before darkness creeps in.
             </p>
-            <div style="margin-top: 25px; padding: 20px; background: rgba(239, 246, 255, 0.9); border-radius: 18px; border-right: 5px solid #1e3a8a;">
-                <p style="margin: 0; color: #1e40af; font-weight: 700;">
-                    
-الضُّـوء ينسلُّ بلا صَخب، و اليقظـةُ المبكرَة تُقيم السدَّ بوجه العتمـة . هذا الموقع عينٌ ساهِـرة ترصد الخلل قبل أن يطَـال البصر🔆 .
-
-Light fades without a sound, and only early vigilance stands against the dark. This platform is a watchful eye, intercepting the unseen before it claims your sight🔆 .
-
+            <div style="margin-top: 25px; padding: 22px; background: rgba(239, 246, 255, 0.95); border-radius: 18px; border-left: 6px solid #1e3a8a;">
+                <p style="margin: 0; color: #1e40af; font-weight: 900; font-size: 19px !important; line-height: 1.8;">
+                    Light fades without a sound, and only early vigilance stands against the dark. This platform is a watchful eye, intercepting the unseen before it claims your sight 🔆.
                 </p>
             </div>
         </div>
