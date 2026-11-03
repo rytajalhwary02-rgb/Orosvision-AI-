@@ -12,7 +12,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# تخصيص CSS متطور: خطوط عربية فخمة وسميكة، أحجام متناسقة، وواجهة طبية راقية
+# تخصيص CSS متطور ليعطي نكهة وفيب تصميمات Dribbble الطبية الحديثة (Bento Grid Style)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&family=Inter:wght@500;600;700&display=swap');
@@ -20,39 +20,43 @@ st.markdown("""
     html, body, [class*="css"], .stApp {
         font-family: 'Cairo', 'Inter', sans-serif !important;
         direction: rtl;
-        background-color: #f4f6f9 !important;
+        background: linear-gradient(135deg, #f0f4f8 0%, #e9eff5 100%) !important;
         color: #0f172a !important;
     }
     
-    /* بطاقات العرض الطبية الفاخرة */
+    /* بطاقات الـ Bento Grid الفاخرة المماثلة لتصميمات Dribbble */
     .med-card {
-        background: #ffffff;
-        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 28px;
         padding: 32px;
-        box-shadow: 0 12px 35px rgba(30, 58, 138, 0.07);
-        border: 1.5px solid #e2e8f0;
+        box-shadow: 0 10px 30px rgba(30, 58, 138, 0.06);
+        border: 1px solid rgba(255, 255, 255, 1);
         margin-bottom: 25px;
         transition: all 0.3s ease;
     }
     
     .med-card:hover {
-        box-shadow: 0 18px 45px rgba(30, 58, 138, 0.12);
+        box-shadow: 0 15px 35px rgba(30, 58, 138, 0.1);
+        transform: translateY(-2px);
     }
     
-    /* تنسيق الحقول والنماذج بوضوح وبخطوط سميكة وبارزة */
+    /* تنسيق الحقول والنماذج بانسيابية تامة */
     input, textarea, select, div[data-baseweb="select"] > div {
-        background-color: #ffffff !important;
+        background-color: #f8fafc !important;
         color: #0f172a !important;
-        border: 2px solid #cbd5e1 !important;
-        border-radius: 14px !important;
+        border: 1.5px solid #cbd5e1 !important;
+        border-radius: 16px !important;
         font-size: 16px !important;
         font-weight: 700 !important;
         padding: 14px 18px !important;
     }
     
     input:focus, textarea:focus {
-        border-color: #1e3a8a !important;
-        box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.15) !important;
+        border-color: #2563eb !important;
+        background-color: #ffffff !important;
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1) !important;
     }
     
     /* أحجام الخطوط الواضحة والاحترافية */
@@ -64,7 +68,7 @@ st.markdown("""
     }
     
     h1 {
-        font-size: 38px !important;
+        font-size: 40px !important;
         font-weight: 900 !important;
         color: #1e3a8a !important;
     }
@@ -78,29 +82,29 @@ st.markdown("""
     h3, h4 {
         font-size: 22px !important;
         font-weight: 700 !important;
-        color: #1e40af !important;
+        color: #1d4ed8 !important;
     }
     
-    /* أزرار التنقل والتبويب بتصميم عصري بارز */
+    /* أزرار التنقل والتبويب بتصميم عصري وناعم */
     .stButton>button {
         font-family: 'Cairo', sans-serif !important;
-        border-radius: 14px !important;
+        border-radius: 16px !important;
         font-weight: 800 !important;
         font-size: 16px !important;
-        background: #ffffff !important;
+        background: rgba(255, 255, 255, 0.9) !important;
         color: #1e3a8a !important;
-        border: 2px solid #cbd5e1 !important;
+        border: 1.5px solid #cbd5e1 !important;
         padding: 14px 22px !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
         transition: all 0.3s ease !important;
     }
     
     .stButton>button:hover {
-        background: #1e3a8a !important;
+        background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%) !important;
         color: #ffffff !important;
-        border-color: #1e3a8a !important;
+        border-color: transparent !important;
         transform: translateY(-2px) !important;
-        box-shadow: 0 8px 22px rgba(30, 58, 138, 0.25) !important;
+        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25) !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -108,7 +112,7 @@ st.markdown("""
 if 'page' not in st.session_state:
     st.session_state.page = 'splash'
 
-# دالة ذكية للبحث عن اللوجو محلياً بغض النظر عن الاسم
+# دالة ذكية للبحث عن اللوجو محلياً
 def find_logo():
     if os.path.exists("logo.png"):
         return "logo.png"
@@ -128,7 +132,6 @@ if st.session_state.page == 'splash':
         if logo_path:
             st.image(logo_path, use_container_width=True)
 
-    # تكبير وتوضيح شعار "رؤية تستبق الظلام" ليكون النجم البارز في الواجهة
     st.markdown("""
         <div class="med-card" style="text-align: center; max-width: 820px; margin: 20px auto;">
             <h1 style="color: #1e3a8a; font-size: 42px !important; font-weight: 900 !important; margin-bottom: 8px;">رُؤيةٌ تَسْتَبِقُ الظَّلام</h1>
@@ -149,7 +152,7 @@ if st.session_state.page == 'splash':
 
 # الهيدر الطبي العلوي (Navigation Bar)
 st.markdown("""
-    <div style="background: #ffffff; padding: 24px; border-radius: 20px; border: 2px solid #e2e8f0; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+    <div style="background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); padding: 24px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 1); margin-bottom: 25px; box-shadow: 0 8px 25px rgba(0,0,0,0.03);">
         <h2 style="margin:0; color: #1e3a8a; font-size: 26px !important;">OrosVision AI &nbsp;<span style="font-size: 16px; color: #64748b; font-weight: 600;">| Translational Clinical Screening Platform</span></h2>
     </div>
 """, unsafe_allow_html=True)
@@ -343,7 +346,7 @@ elif st.session_state.page == 'awareness':
             <p style="font-size: 17px !important; color: #334155; line-height: 1.8;">
                 لأننا نؤمن أن كل عين تستحق أن تستمر في رؤية النور، ولأن الكشف المبكر يحمي أكثر من <b>90%</b> من المرضى من فقدان البصر الدائم (وفقاً لتقديرات منظمة الصحة العالمية)، وُلدت منصة <b>OrosVision AI</b>.. لكي نكون درعاً وقائياً يحمي العيون قبل أن يمتد إليها الظلام. 
             </p>
-            <div style="margin-top: 25px; padding: 20px; background: #eff6ff; border-radius: 16px; border-right: 5px solid #1e3a8a;">
+            <div style="margin-top: 25px; padding: 20px; background: rgba(239, 246, 255, 0.9); border-radius: 18px; border-right: 5px solid #1e3a8a;">
                 <p style="margin: 0; color: #1e40af; font-weight: 700;">
                     ✨ رسالتنا في ISEF: أن نجعل الفحص الطبي المبكر متاحاً، سريعاً، وبسيطاً في كل بيت.. لأن النور حقٌّ لكل عيون العالم.
                 </p>
