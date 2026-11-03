@@ -7,7 +7,7 @@ import os
 # إعدادات الواجهة وخصائص الصفحة
 st.set_page_config(
     page_title="OrosVision AI",
-    page_icon="𓂀",
+    page_icon="👁️",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -118,12 +118,12 @@ with st.sidebar:
     page = st.radio(
         "اختر القسم المطلوب:",
         [
-            "🏠 الرئيسية (Home & Splash)",
-            "📝 التسجيل الإكلينيكي (Intake)",
-            "🔍 الفحص الذكي (Smart Screening)",
-            "📈 المتابعة الزمنية (Longitudinal)",
-            "📊 تقارير وإحصائيات (Reports)",
-            "🔆 التوعية والأمل (Awareness)"
+            "🏠 الرئيسية",
+            "📝 التسجيل الإكلينيكي",
+            "🔍 الفحص الذكي",
+            "📈 المتابعة الزمنية",
+            "📊 تقارير وإحصائيات",
+            "💡 التوعية والأمل"
         ]
     )
     
@@ -133,7 +133,7 @@ with st.sidebar:
 # -------------------------------------------------------------
 # 1. الصفحة الرئيسية
 # -------------------------------------------------------------
-if "🏠 الرئيسية" in page:
+if page == "🏠 الرئيسية":
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown("""
         <div class="med-card" style="text-align: center; max-width: 850px; margin: 0 auto;">
@@ -148,7 +148,7 @@ if "🏠 الرئيسية" in page:
 # -------------------------------------------------------------
 # 2. التسجيل الإكلينيكي
 # -------------------------------------------------------------
-elif "📝 التسجيل" in page:
+elif page == "📝 التسجيل الإكلينيكي":
     st.markdown("<h2 style='color: #1e3a8a;'>📝 التسجيل الإكلينيكي للمريض | Patient Clinical Intake</h2>", unsafe_allow_html=True)
     
     with st.form("patient_intake_form"):
@@ -185,14 +185,13 @@ elif "📝 التسجيل" in page:
 # -------------------------------------------------------------
 # 3. الفحص الذكي
 # -------------------------------------------------------------
-elif "🔍 الفحص الذكي" in page:
+elif page == "🔍 الفحص الذكي":
     st.markdown("<h2 style='color: #1e3a8a;'>🔍 الفحص اللحظي لقاع العين والتحليل التفسيري (XAI Screening)</h2>", unsafe_allow_html=True)
 
     if not st.session_state.get('intake_complete', False):
         st.warning("⚠️ تنبيه: يُرجى تسجيل بيانات المريض أولاً من قسم 'التسجيل الإكلينيكي' في القائمة الجانبية.")
     else:
         patient_name = st.session_state.get('patient_name', 'غير محدد')
-        has_dia = st.session_state.get('has_diabetes', False)
         
         st.markdown(f"""
             <div class="med-card" style="padding: 15px 25px;">
@@ -229,7 +228,7 @@ elif "🔍 الفحص الذكي" in page:
 # -------------------------------------------------------------
 # 4. المتابعة الزمنية
 # -------------------------------------------------------------
-elif "📈 المتابعة الزمنية" in page:
+elif page == "📈 المتابعة الزمنية":
     st.markdown("<h2 style='color: #1e3a8a;'>📈 لوحة المتابعة الزمنية لتطور العصب البصري</h2>", unsafe_allow_html=True)
     
     col_old, col_new = st.columns(2)
@@ -252,7 +251,7 @@ elif "📈 المتابعة الزمنية" in page:
 # -------------------------------------------------------------
 # 5. تقارير وإحصائيات
 # -------------------------------------------------------------
-elif "📊 تقارير وإحصائيات" in page:
+elif page == "📊 تقارير وإحصائيات":
     st.markdown("<h2 style='color: #1e3a8a;'>📊 لوحة التقارير الشاملة والإحصائيات الإكلينيكية</h2>", unsafe_allow_html=True)
     st.markdown("""
         <div class="med-card">
@@ -266,10 +265,10 @@ elif "📊 تقارير وإحصائيات" in page:
 # -------------------------------------------------------------
 # 6. التوعية والأمل
 # -------------------------------------------------------------
-elif "🔆التوعية والأمل" in page:
+elif page == "💡 التوعية والأمل":
     st.markdown("""
         <div class="med-card">
-            <h2 style="color: #1e3a8a; margin-top:0;"> 💌رسالة أمل ونبض إنساني</h2>
+            <h2 style="color: #1e3a8a; margin-top:0;">💡 رسالة أمل ونبض إنساني</h2>
             <p style="font-size: 19px !important; color: #1e3a8a; font-weight: 700 !important; line-height: 1.8; margin-bottom: 20px;">
                 "النور هو أغلى ما يمتلكه الإنسان لرؤية أحبابه وجمال هذا العالم.. والجلوكوما تُعرف بـ (اللص الصامت للبصر) لأنها تسرق النور تدريجياً وبدون ألم."
             </p>
