@@ -134,10 +134,10 @@ if st.session_state.page == 'splash':
 
     st.markdown("""
         <div class="med-card" style="text-align: center; max-width: 860px; margin: 20px auto;">
-            <h1 style="color: #1e3a8a; font-size: 52px !important; font-weight: 900 !important; margin-bottom: 12px; letter-spacing: -0.5px;">Vision Preceding the Darkness</h1>
-            <h3 style="color: #2563eb; font-size: 26px !important; font-weight: 800 !important; margin-bottom: 22px;">رؤيةٌ تستبق الظلام</h3>
+            <h1 style="color: #1e3a8a; font-size: 52px !important; font-weight: 900 !important; margin-bottom: 12px; letter-spacing: -0.5px;">Orosvision AI</h1>
+            <h3 style="color: #2563eb; font-size: 26px !important; font-weight: 800 !important; margin-bottom: 22px;"> رؤيةٌ تستبق الظلام </h3>
             <p style="font-size: 19px !important; color: #334155; line-height: 1.9; font-weight: 700 !important;">
-                Advanced clinical diagnostic platform integrating Explainable Artificial Intelligence (XAI) and smartphone lenses for early glaucoma detection and longitudinal optic nerve monitoring.
+                Advanced clinical diagnostic platform integrating Explainable Artificial Intelligence (XAI) and smartphone lenses for early glaucoma detection and longitudinal optic nerve monitoring .
             </p>
         </div>
     """, unsafe_allow_html=True)
