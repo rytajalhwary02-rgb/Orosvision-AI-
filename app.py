@@ -85,10 +85,10 @@ st.markdown("""
         color: #1d4ed8 !important;
     }
     
-    /* تخصيص خاص وعريض جداً لكلمة Orosvision وعنوان رؤية تستبق الظلام في الصفحة الأولى */
+    /* تخصيص خاص وعريض جداً لكلمة Orosvisionوعنوان رؤية تستبق الظلام في الصفحة الأولى */
     .hero-title-en {
         font-family: 'Inter', sans-serif !important;
-        font-size: 58px !important;
+        font-size: 56px !important;
         font-weight: 900 !important;
         color: #1e3a8a !important;
         letter-spacing: -1px;
