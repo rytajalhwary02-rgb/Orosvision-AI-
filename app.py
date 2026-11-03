@@ -6,13 +6,13 @@ import os
 
 # إعدادات الواجهة وخصائص الصفحة
 st.set_page_config(
-    page_title="OrosVisionAI",
+    page_title="OrosVision AI",
     page_icon="𓂀",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-# تخصيص CSS متطور: الخلفية بلون السكري (Creamy Off-White) وخطوط أعرض وأثخن للعناوين المحددة
+# تخصيص CSS متطور: ظبط مقاسات الكلمة الأولى لتظهر في سطر واحد وبحجم متناسق ومريح
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;800;900&family=Inter:wght@600;800;900&display=swap');
@@ -85,20 +85,21 @@ st.markdown("""
         color: #1d4ed8 !important;
     }
     
-    /* تخصيص خاص وعريض جداً لكلمة Orosvisionوعنوان رؤية تستبق الظلام في الصفحة الأولى */
+    /* ظبط مقاس اسم المنصة ليبقى متناسقاً وفي سطر واحد تماماً بدون أي نزول للسطر */
     .hero-title-en {
         font-family: 'Inter', sans-serif !important;
-        font-size: 56px !important;
+        font-size: 44px !important;
         font-weight: 900 !important;
         color: #1e3a8a !important;
-        letter-spacing: -1px;
+        letter-spacing: -0.5px;
         line-height: 1.2;
         margin-bottom: 15px;
+        white-space: nowrap;
     }
 
     .hero-title-ar {
         font-family: 'Cairo', sans-serif !important;
-        font-size: 38px !important;
+        font-size: 36px !important;
         font-weight: 900 !important;
         color: #2563eb !important;
         line-height: 1.4;
@@ -123,7 +124,7 @@ st.markdown("""
         background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%) !important;
         color: #ffffff !important;
         border-color: transparent !important;
-        transform: translateY(-2px !important);
+        transform: translateY(-2px) !important;
         box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25) !important;
     }
     </style>
@@ -142,7 +143,7 @@ def find_logo():
                 return f
     return None
 
-# 1. شاشة الترحيب (Splash Page) - الكلمات البارزة بخط عريض وأعرض خصيصاً
+# 1. شاشة الترحيب (Splash Page)
 if st.session_state.page == 'splash':
     st.markdown("<br>", unsafe_allow_html=True)
     
@@ -154,7 +155,7 @@ if st.session_state.page == 'splash':
 
     st.markdown("""
         <div class="med-card" style="text-align: center; max-width: 880px; margin: 20px auto;">
-            <div class="hero-title-en">Orosvision AI</div>
+            <div class="hero-title-en">OrosVision AI</div>
             <div class="hero-title-ar">رؤيةٌ تستبق الظلام</div>
             <p style="font-size: 19px !important; color: #334155; line-height: 1.9; font-weight: 700 !important;">
                 Advanced clinical diagnostic platform integrating Explainable Artificial Intelligence (XAI) and smartphone lenses for early glaucoma detection and longitudinal optic nerve monitoring.
